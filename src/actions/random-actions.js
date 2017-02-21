@@ -1,15 +1,14 @@
 import {UPVOTE} from './types'
-import {DOWNVOTE} from './types'
 
-export function upVote() {
+export function upv() {
   return {
     type: UPVOTE,
     payload: 'Just liked this!'
   }
 }
-export function downVote() {
+export function dvote() {
   return {
-    type: DOWNVOTE,
+    type: UPVOTE,
     payload: 'Just liked this!'
   }
 }

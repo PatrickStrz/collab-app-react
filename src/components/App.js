@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <Router history={browserHistory}>
-        {/* <Route component={Site}> */}
+        <Route component={Site}>
           <Route path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route onEnter={requireAuth}>
@@ -20,7 +20,7 @@ class App extends Component {
             <Route path="/likes" component={Likes} />
             <Route path="/profile/edit" component={EditProfile} />
           </Route>
-        {/* </Route> */}
+        </Route>
       </Router>
     );
   }
