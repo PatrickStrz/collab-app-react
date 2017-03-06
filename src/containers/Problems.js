@@ -11,21 +11,20 @@ class Problems extends Component {
     toggle: false
   }
 
-  ideasData = [{id:1,problem_id:1,title:"Ideas title 1",text: "sometext"},
-  {id:1,problem_id:1,title:"Ideas title 2",text: "sometext"},
-  {id:1,problem_id:1,title:"Ideas title 3",text: "sometext"}]
 
   getIdeasClickHandler(problemId){
     this.props.getIdeas(problemId)
     this.setState({toggle: !this.state.toggle})
   }
 
-  listIdeasForProblems = (ideas, problemId) => {
-    return ideas.map((idea)=>{
-        return(
-            <p>idea:{idea.id} for problem: {idea.problem_id}</p>
-        )
+
+  listIdeasForProblem = (ideas, problemId) =>{
+    return( ideas.map((idea)=>{
+        if (idea.problem_id === problemId){
+          return   <p>idea:{idea.title} for problem: {idea.problem_id}</p>
+        }
       })
+    )
   }
 
   listProblems = (problems) => {
@@ -39,7 +38,7 @@ class Problems extends Component {
             get ideas for problem {problem.id}
           </button>
           <div>
-            { this.state.toggle ? this.listIdeasForProblems(this.props.ideasList, problem.id) : ''}
+            { this.state.toggle ? this.listIdeasForProblem(this.props.ideasList, problem.id) : ''}
           </div>
         </div>
       )
