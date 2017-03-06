@@ -5,8 +5,8 @@ import {IDEAS} from './types'
 const BASE_URL_PRODUCTION = "https://collab-app-2017.herokuapp.com/"
 
 const RESOURCE = "/problems/"
-export function getIdeas(){
-  const problemId = 1
+export function getIdeas(problemId){
+  // const problemId = 1
   const request = axios.get(`${BASE_URL_PRODUCTION}${RESOURCE}${problemId}/ideas/`)
   return {
       type: IDEAS,

@@ -7,27 +7,40 @@ import './Problem.css';
 
 class Problems extends Component {
 
-  // listIdeasForProblems(ideas){
-  //   map over ideas on click
-  // }
-  listIdeasForProblems(ideas){
-    // debugger
-    return ideas.map((idea)=>{
-      return(
-        <div key={'idea'+idea.id}>
-          <p>{idea.title}|idea content: {idea.text}</p>
-        </div>
-      )
-    })
+  state = {
+    toggle: false
   }
 
-  listProblems(problems){
+  ideasData = [{id:1,problem_id:1,title:"Ideas title 1",text: "sometext"},
+  {id:1,problem_id:1,title:"Ideas title 2",text: "sometext"},
+  {id:1,problem_id:1,title:"Ideas title 3",text: "sometext"}]
+
+  getIdeasClickHandler(problemId){
+    this.props.getIdeas(problemId)
+    this.setState({toggle: !this.state.toggle})
+  }
+
+  listIdeasForProblems = (ideas, problemId) => {
+    return ideas.map((idea)=>{
+        return(
+            <p>idea:{idea.id} for problem: {idea.problem_id}</p>
+        )
+      })
+  }
+
+  listProblems = (problems) => {
+
     return problems.map((problem)=>{
+
       return(
         <div key={'problem-'+problem.id}>
-        <p className='Problem'>{problem.title} | {problem.text}</p>
-        <button onClick={this.props.getIdeas}>get ideas</button>
-        <div>{this.listIdeasForProblems(this.props.ideasList)}</div>
+          <p className='Problem'>{problem.title} | {problem.text}</p>
+          <button onClick={(e)=>{this.getIdeasClickHandler(problem.id)}}>
+            get ideas for problem {problem.id}
+          </button>
+          <div>
+            { this.state.toggle ? this.listIdeasForProblems(this.props.ideasList, problem.id) : ''}
+          </div>
         </div>
       )
     })
