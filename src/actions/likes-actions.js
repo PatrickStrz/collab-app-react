@@ -1,7 +1,7 @@
 import {UPVOTE} from './types'
 import {DOWNVOTE} from './types'
 
-export function upVote() {
+export const upVote = ()=> {
   return {
     type: UPVOTE,
     payload: 'Just liked this!'

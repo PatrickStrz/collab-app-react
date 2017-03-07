@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 // import {upvote} from '../actions/likes-actions'
 import * as actions from '../actions'
 
-class Likes extends Component {
+class Posts extends Component {
   render(){
     return(
       <div>
@@ -29,6 +29,6 @@ const mapStateToProps = (state) => {
 //     }
 //   }
 // }
-export default connect(mapStateToProps, actions)(Likes);
+export default connect(mapStateToProps, actions)(Posts);
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Likes);
