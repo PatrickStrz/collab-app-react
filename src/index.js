@@ -8,11 +8,11 @@ import App from './components/App'
 import './index.css'
 import rootReducer from './reducers'
 
-// let store = createStore(rootReducer)
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(promiseMiddleware)))
-//
+
 // const store = createStoreWithMiddleware()
 // const createStoreWithMiddleware = applyMiddleware(reduxPromise)(createStore);
 // const store = createStoreWithMiddleware(rootReducer);

@@ -1,13 +1,13 @@
 
-export const addProblem = (problemId,problems)=>{
+export const addProblem = (problemId,problems)=> {
 
-  const problem = {id:problemId, ideasVisible:false}
+  const problem = { id:problemId, ideasVisible:false }
 
   return [...problems, problem]
 
 }
 
-export const toggleIdeasForProblem = (problemId,problems)=>{
+export const toggleIdeasForProblem = (problemId,problems)=> {
 
   const problemIndex = problems.findIndex(problem => problem.id === problemId)
 
@@ -19,7 +19,7 @@ export const toggleIdeasForProblem = (problemId,problems)=>{
 
 }
 
-export const removeProblem = (problemId,problems)=>{
+export const removeProblem = (problemId,problems)=> {
 
   const removeIndex = problems.findIndex(problem => problem.id === problemId)
   console.log(removeIndex)

@@ -11,17 +11,15 @@ class Problems extends Component {
     toggle: false
   }
 
-
-  getIdeasClickHandler(problemId){
+  getIdeasClickHandler(problemId) {
     this.props.getIdeas(problemId)
     this.setState({toggle: !this.state.toggle})
   }
 
-
-  listIdeasForProblem = (ideas, problemId) =>{
-    return( ideas.map((idea)=>{
-        if (idea.problem_id === problemId){
-          return   <p>idea:{idea.title} for problem: {idea.problem_id}</p>
+  listIdeasForProblem = (ideas, problemId) => {
+    return ( ideas.map((idea)=> {
+        if (idea.problem_id === problemId) {
+          return <p>idea:{idea.title} for problem: {idea.problem_id}</p>
         }
       })
     )
@@ -29,33 +27,32 @@ class Problems extends Component {
 
   listProblems = (problems) => {
 
-    return problems.map((problem)=>{
+    return problems.map((problem)=> {
 
-      return(
+      return (
         <div key={'problem-'+problem.id}>
           <p className='Problem'>{problem.title} | {problem.text}</p>
           <button onClick={(e)=>{this.getIdeasClickHandler(problem.id)}}>
             get ideas for problem {problem.id}
           </button>
           <div>
-            { this.state.toggle ? this.listIdeasForProblem(this.props.ideasList, problem.id) : ''}
+            {this.state.toggle && this.listIdeasForProblem(this.props.ideasList, problem.id)}
           </div>
         </div>
       )
     })
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <div>
-        <h2>Like this to see redux in action</h2>
+        <h2>Test redux</h2>
         <button onClick={this.props.upVote}>Upvote</button>
         <button onClick={this.props.downVote}>Downvote</button>
         <h3>Likes:{this.props.likes}</h3>
         <button onClick={this.props.getProblems}>Get All Problems</button>
-
         <div>
-          { this.props.problems !== [''] ?  this.listProblems(this.props.problemsList) : 'noth' }
+          {this.listProblems(this.props.problemsList)}
         </div>
       </div>
     )
