@@ -1,6 +1,6 @@
 import {IDEAS} from '../actions/types'
 
-const initialState = {ideasList:[]}
+const initialState = {ideasForProblems:[]}
 
 export default function(state=initialState, action){
 
@@ -8,8 +8,8 @@ export default function(state=initialState, action){
 
     let newState = {...state.ideasList}
     newState[action.meta.problemId] = action.payload.data
-    return {...state, ideasList:newState}
-    
+    return {...state, ideasForProblems:newState}
+
   }
 return state
 }

@@ -19,8 +19,7 @@ class Problems extends Component {
             get ideas for problem {problem.id}
           </button>
           <div>
-            {this.state.ideasVisibleForProblems.includes(problem.id) && this.listIdeasForProblemFiltered(this.props.ideasList, problem.id)}
-            {this.state.ideasVisibleForProblems.includes(problem.id) && <p>Visible</p>}
+            {this.state.ideasVisibleForProblems.includes(problem.id) && this.listIdeasForProblems(problem.id)}
           </div>
         </div>
       )
@@ -34,25 +33,24 @@ class Problems extends Component {
   }
 
   toggleIdeasForProblem = (problemId)=>{
-    let problems = this.state.ideasVisibleForProblems
+    let ideasVisibleForProblems = this.state.ideasVisibleForProblems
     let toggledProblems = []
-    if (problems.includes(problemId)) {
-      toggledProblems = removeProblem(problemId,problems)
+    if (ideasVisibleForProblems.includes(problemId)) {
+      toggledProblems = removeProblem(problemId,ideasVisibleForProblems)
     }
     else {
-      toggledProblems = addProblem(problemId,problems)
+      toggledProblems = addProblem(problemId,ideasVisibleForProblems)
     }
     this.setState({ideasVisibleForProblems:toggledProblems})
   }
 
-  listIdeasForProblemFiltered = (ideas, problemId) => {
-    if (ideas.length > 0){
-    return ideas.filter((idea)=>{
-      return idea.problem_id === problemId
-    }).map((idea)=>{
-      return <p key={'idea-'+idea.id}>idea:{idea.title} for problem: {idea.problem_id}</p>
-    })
-  }
+  listIdeasForProblems(problemId){
+    const ideasForProblems = this.props.ideasForProblems
+    if (ideasForProblems.hasOwnProperty(problemId)) {
+      return ideasForProblems[problemId].map((idea)=>{
+        return <p key={'idea'+idea.id}>problem:{idea.problem_id}| idea:{idea.title}</p>
+      })
+    }
   }
 
 
@@ -76,7 +74,7 @@ const mapStateToProps = (state) => {
   return {
     likes: state.likes,
     problemsList: state.problems.problemsList,
-    ideasList: state.ideas.ideasList
+    ideasForProblems: state.ideas.ideasForProblems
   }
 }
 
