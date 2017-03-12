@@ -6,7 +6,7 @@ export default function(state=initialState, action){
 
   if (action.type === IDEAS){
 
-    let newState = {...state.ideasList}
+    let newState = {...state.ideasForProblems}
     newState[action.meta.problemId] = action.payload.data
     return {...state, ideasForProblems:newState}
 
