@@ -2,31 +2,21 @@
 import {addProblem, toggleIdeasForProblem, removeProblem} from './problems-helpers'
 
 test('addProblem should add problem object to array', ()=> {
-  const startProblems = [
-    { id:1, ideasVisible:false }
-  ]
+  const startProblems = [1,37,39]
   const problemId= 4
   const result = addProblem(problemId, startProblems)
 
-  const expected = [
-    { id:1, ideasVisible:false },
-    { id:4, ideasVisible:false }
-  ]
+  const expected = [1,37,39,4]
 
   expect(result).toEqual(expected)
 })
 
 test('addProblem should not mutate the existing problem array', ()=> {
-  const startProblems = [
-    { id:1, ideasVisible:false }
-  ]
+  const startProblems = [1,37,39]
   const problemId= 4
   const result = addProblem(problemId, startProblems)
 
-  const expected = [
-    { id:1, ideasVisible:false },
-    { id:4, ideasVisible:false }
-  ]
+  const expected = [1,37,39,4]
 
   expect(result).not.toBe(expected)
 })
@@ -72,36 +62,22 @@ test('toggleIdeasListForProblem should not mutate existing list', ()=> {
   expect(result).not.toBe(expected)
 })
 
+
 test('removeProblem should remove a problem by id', ()=>{
-  const startProblems = [
-    { id:1, ideasVisible:false },
-    { id:4, ideasVisible:false },
-    { id:9, ideasVisible:false },
-  ]
+  const startProblems = [1,27,4,29]
   const problemId = 4
   const result = removeProblem(problemId, startProblems)
 
-  const expected = [
-    { id:1, ideasVisible:false },
-    { id:9, ideasVisible:false },
-  ]
-
+  const expected = [1,27,29]
   expect(result).toEqual(expected)
 })
 
 test('removeProblem should not mutate the existing array', ()=>{
-  const startProblems = [
-    { id:1, ideasVisible:false },
-    { id:4, ideasVisible:false },
-    { id:9, ideasVisible:false },
-  ]
+  const startProblems = [1,27,4,29]
   const problemId = 4
   const result = removeProblem(problemId, startProblems)
 
-  const expected = [
-    { id:1, ideasVisible:false },
-    { id:9, ideasVisible:false },
-  ]
+  const expected = [1,27,29]
 
   expect(result).not.toBe(expected)
 })

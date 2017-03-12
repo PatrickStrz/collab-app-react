@@ -1,34 +1,17 @@
-import React,{Component} from 'react';
-import { connect } from 'react-redux';
+import React,{Component} from 'react'
+import { connect } from 'react-redux'
 import * as actions from '../actions'
 import './Problem.css';
-
-
+import {addProblem,
+        removeProblem,} from '../lib/problems-helpers'
 
 class Problems extends Component {
-
   state = {
-    toggle: false
-  }
-
-  getIdeasClickHandler(problemId) {
-    this.props.getIdeas(problemId)
-    this.setState({toggle: !this.state.toggle})
-  }
-
-  listIdeasForProblem = (ideas, problemId) => {
-    return ( ideas.map((idea)=> {
-        if (idea.problem_id === problemId) {
-          return <p>idea:{idea.title} for problem: {idea.problem_id}</p>
-        }
-      })
-    )
+    ideasVisibleForProblems: []
   }
 
   listProblems = (problems) => {
-
     return problems.map((problem)=> {
-
       return (
         <div key={'problem-'+problem.id}>
           <p className='Problem'>{problem.title} | {problem.text}</p>
@@ -36,12 +19,42 @@ class Problems extends Component {
             get ideas for problem {problem.id}
           </button>
           <div>
-            {this.state.toggle && this.listIdeasForProblem(this.props.ideasList, problem.id)}
+            {this.state.ideasVisibleForProblems.includes(problem.id) && this.listIdeasForProblemFiltered(this.props.ideasList, problem.id)}
+            {this.state.ideasVisibleForProblems.includes(problem.id) && <p>Visible</p>}
           </div>
         </div>
       )
     })
   }
+
+  getIdeasClickHandler = (problemId)=> {
+    this.props.getIdeas(problemId)
+    this.setState({toggle: !this.state.toggle})
+    this.toggleIdeasForProblem(problemId)
+  }
+
+  toggleIdeasForProblem = (problemId)=>{
+    let problems = this.state.ideasVisibleForProblems
+    let toggledProblems = []
+    if (problems.includes(problemId)) {
+      toggledProblems = removeProblem(problemId,problems)
+    }
+    else {
+      toggledProblems = addProblem(problemId,problems)
+    }
+    this.setState({ideasVisibleForProblems:toggledProblems})
+  }
+
+  listIdeasForProblemFiltered = (ideas, problemId) => {
+    if (ideas.length > 0){
+    return ideas.filter((idea)=>{
+      return idea.problem_id === problemId
+    }).map((idea)=>{
+      return <p key={'idea-'+idea.id}>idea:{idea.title} for problem: {idea.problem_id}</p>
+    })
+  }
+  }
+
 
   render() {
     return (

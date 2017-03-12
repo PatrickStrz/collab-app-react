@@ -4,7 +4,6 @@ const initialState = {problemsList:[]}
 
 export default function(state=initialState, action){
   if (action.type === PROBLEMS){
-    // console.log(action.payload.data)
     return { ...state, problemsList:action.payload.data}
   }
   return state
