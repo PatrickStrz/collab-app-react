@@ -4,6 +4,7 @@ import * as actions from '../actions'
 import './Problem.css';
 import {addProblem,
         removeProblem,} from '../lib/problems-helpers'
+import ProblemForm from './problemForm'
 
 class Problems extends Component {
   state = {
@@ -18,6 +19,7 @@ class Problems extends Component {
           <button onClick={(e)=>{this.getIdeasClickHandler(problem.id)}}>
             get ideas for problem {problem.id}
           </button>
+          <button onClick={(e)=>this.props.deleteProblem(problem.id)}>Delete Post</button>
           <div>
             {this.state.ideasVisibleForProblems.includes(problem.id) && this.listIdeasForProblems(problem.id)}
           </div>
@@ -46,15 +48,21 @@ class Problems extends Component {
 
   listIdeasForProblems(problemId){
     const ideasForProblems = this.props.ideasForProblems
-    if (ideasForProblems.hasOwnProperty(problemId)) {
+    if (ideasForProblems.hasOwnProperty(problemId) && ideasForProblems[problemId].length !== 0) {
       return ideasForProblems[problemId].map((idea)=>{
         return <p key={'idea'+idea.id}>problem:{idea.problem_id}| idea:{idea.title}</p>
       })
+    }
+    else{
+      return <p>No ideas here, please add one :) +</p>
     }
   }
 
 
   render() {
+    if (this.props.problemsReload){
+      this.props.getProblems()
+    }
     return (
       <div>
         <h2>Test redux</h2>
@@ -65,6 +73,8 @@ class Problems extends Component {
         <div>
           {this.listProblems(this.props.problemsList)}
         </div>
+          <br></br>
+          <ProblemForm onSubmit={this.props.newProblem} />
       </div>
     )
   }
@@ -74,7 +84,8 @@ const mapStateToProps = (state) => {
   return {
     likes: state.likes,
     problemsList: state.problems.problemsList,
-    ideasForProblems: state.ideas.ideasForProblems
+    ideasForProblems: state.ideas.ideasForProblems,
+    problemsReload: state.problems.problemsReload,
   }
 }
 

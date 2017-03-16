@@ -1,64 +1,19 @@
-import {PROBLEMS} from '../actions/types'
+import {PROBLEMS, DELETE_PROBLEM, NEW_PROBLEM} from '../actions/types'
+const initialState = {problemsList:[],problemsReload:false}
 
-const initialState = {problemsList:[]}
 
 export default function(state=initialState, action){
-  if (action.type === PROBLEMS){
-    return { ...state, problemsList:action.payload.data}
+  // if (action.type === PROBLEMS){
+  //   return { ...state, problemsList:action.payload.data}
+  // }
+  switch (action.type) {
+    case PROBLEMS:
+      return { ...state, problemsList:action.payload.data, problemsReload:false}
+    case DELETE_PROBLEM :
+      return {...state, problemsReload:true}
+    case NEW_PROBLEM :
+      return {...state, problemsReload:true}
+    default:
+      return state
   }
-  return state
 }
-
-
-
-
-
-//
-//
-// export function (state,action){
-//   // switch (action.type){
-//   //   case PROBLEMS:
-//   //     return: posts: action.payload
-//   //   case SOME_OTHER_CASE:
-//   //     return ....
-//   //
-//   // }
-//   case:
-//   return state
-// }
-//
-// export default function (state, action) {
-//   if (typeof state === 'undefined') {
-//     state = 0; // If state is undefined, initialize it with a default value
-//   }
-//
-//   if (action.type === UPVOTE) {
-//     return state + 1;
-//   }
-//   else if (action.type === DOWNVOTE) {
-//     return state - 1;
-//   }
-//   else {
-//     return state; // In case an action is passed in we don't understand
-//   }
-// }
-//
-//
-//
-// const initialState = { home:null, post:[]};
-//
-// export default function(state= INITIAL_STATE, action) {
-//
-//   switch(action.type){
-//
-//     case FETCH_HOME:
-//       return { ...state, posts_list: action.payload};
-//
-//     case FETCH_POST:
-//       return { ...state, post: action.payload};
-//
-//     case DELETE_POST:
-//         return { ...state, post: null};
-//   }
-//   return state;
-// }
