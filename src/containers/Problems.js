@@ -4,7 +4,7 @@ import * as actions from '../actions'
 import './Problem.css';
 import {addProblem,
         removeProblem,} from '../lib/problems-helpers'
-import ProblemForm from './problemForm'
+import ProblemForm from './ProblemForm'
 
 class Problems extends Component {
   state = {
