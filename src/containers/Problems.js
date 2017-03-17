@@ -5,6 +5,8 @@ import './Problem.css';
 import {addProblem,
         removeProblem,} from '../lib/problems-helpers'
 import ProblemForm from './ProblemForm'
+import Idea from '../components/Idea'
+
 
 class Problems extends Component {
   state = {
@@ -15,14 +17,18 @@ class Problems extends Component {
     return problems.map((problem)=> {
       return (
         <div key={'problem-'+problem.id}>
-          <p className='Problem'>{problem.title} | {problem.text}</p>
-          <button onClick={(e)=>{this.getIdeasClickHandler(problem.id)}}>
-            get ideas for problem {problem.id}
-          </button>
-          <button onClick={(e)=>this.props.deleteProblem(problem.id)}>Delete Post</button>
-          <div>
-            {this.state.ideasVisibleForProblems.includes(problem.id) && this.listIdeasForProblems(problem.id)}
+          <div className="grid-center" style={{ paddingTop:"5px", paddingBottom:"5px"}} >
+            <div className="col-6" style={{background:"rgb(75, 136, 241)"}}>
+              <p className='Problem'>{problem.title} | {problem.text}</p>
+              <button onClick={(e)=>{this.getIdeasClickHandler(problem.id)}}>
+                get ideas for problem {problem.id}
+              </button>
+              <button onClick={(e)=>this.props.deleteProblem(problem.id)}>Delete Post</button>
+            </div>
           </div>
+            <div>
+              {this.state.ideasVisibleForProblems.includes(problem.id) && this.listIdeasForProblems(problem.id)}
+            </div>
         </div>
       )
     })
@@ -50,7 +56,7 @@ class Problems extends Component {
     const ideasForProblems = this.props.ideasForProblems
     if (ideasForProblems.hasOwnProperty(problemId) && ideasForProblems[problemId].length !== 0) {
       return ideasForProblems[problemId].map((idea)=>{
-        return <p key={'idea'+idea.id}>problem:{idea.problem_id}| idea:{idea.title}</p>
+        return <Idea key={'idea'+idea.id} idea={idea} />
       })
     }
     else{
@@ -65,10 +71,6 @@ class Problems extends Component {
     }
     return (
       <div>
-        <h2>Test redux</h2>
-        <button onClick={this.props.upVote}>Upvote</button>
-        <button onClick={this.props.downVote}>Downvote</button>
-        <h3>Likes:{this.props.likes}</h3>
         <button onClick={this.props.getProblems}>Get All Problems</button>
         <div>
           {this.listProblems(this.props.problemsList)}
