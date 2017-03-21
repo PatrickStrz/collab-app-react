@@ -1,31 +1,30 @@
 import React,{ Component } from 'react'
 import { Field,reduxForm } from 'redux-form'
-// import {newProblem} from '../actions/problems-actions'
 class ProblemCreateForm extends Component{
+
+  renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} placeholder={label} type={type}/>
+      <div>{touched && (error && <span>{error}</span>)}</div>
+    </div>
+  </div>
+  )
 
   render(){
 
-    const {handleSubmit} = this.props
-
-    const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-    <div>
-      <label>{label}</label>
-      <div>
-        <input {...input} placeholder={label} type={type}/>
-        <div>{touched && (error && <span>{error}</span>)}</div>
-      </div>
-    </div>
-    )
+    const {handleSubmit, submitting} = this.props
 
     return(
         <form onSubmit={handleSubmit}>
           <label>Title</label>
-          <Field name="title" component={renderField} type="text"/>
+          <Field name="title" component={this.renderField} type="text"/>
           <br/>
           <label>Text</label>
-          <Field name="text" component={renderField} type="text"/>
+          <Field name="text" component={this.renderField} type="text"/>
           <br/>
-          <input type="submit"/>
+          <input disabled={submitting} type="submit" />
         </form>
     )
   }
@@ -43,6 +42,6 @@ const validate = (values) =>{
 }
 
 export default reduxForm({
-  form: 'newPost',
+  form: 'newProblem',
   validate,
 },null)(ProblemCreateForm)
