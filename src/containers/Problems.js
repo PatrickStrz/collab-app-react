@@ -24,10 +24,10 @@ class Problems extends Component {
               <button onClick={(e)=>{this.getIdeasClickHandler(problem.id)}}>
                 get ideas for problem {problem.id}
               </button>
-              <button onClick={(e)=>this.props.deleteProblem(problem.id)}>Delete Post</button>
+              <button onClick={(e)=>this.props.deleteProblem(problem.id)}>Delete Problem</button>
               <br />
               {/* partial assigned problem.id to pass along when redux form is submitted */}
-              <ProblemUpdateForm  onSubmit={this.props.updateProblem.bind(null,problem.id)}/>
+              <ProblemUpdateForm  onSubmit={this.props.updateProblem.bind(null,problem.id)} form={`problemUpdate${problem.id}`}/>
             </div>
           </div>
             <div>
@@ -67,7 +67,6 @@ class Problems extends Component {
       return <p>No ideas here, please add one :) +</p>
     }
   }
-
 
   render() {
     if (this.props.problemsReload){

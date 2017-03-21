@@ -2,33 +2,33 @@ import React,{ Component } from 'react'
 import { Field,reduxForm } from 'redux-form'
 class ProblemUpdateForm extends Component{
 
+  renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} placeholder={label} type={type}/>
+      <div>{touched && (error && <span>{error}</span>)}</div>
+    </div>
+  </div>
+  )
+
   render(){
 
-    const {handleSubmit} = this.props
+    const {handleSubmit, submitting} = this.props
 
     return(
         <form onSubmit={handleSubmit} >
           <label>Title</label>
-          <Field name="title" component={renderField} type="text"/>
+          <Field name="title" component={this.renderField} type="text"/>
           <br/>
           <label>Text</label>
-          <Field name="text" component={renderField} type="text"/>
+          <Field name="text" component={this.renderField} type="text"/>
           <br/>
-          <input type="submit" title="update"/>
+          <input type="submit" disabled={submitting} title="update"/>
         </form>
     )
   }
 }
-
-const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-<div>
-  <label>{label}</label>
-  <div>
-    <input {...input} placeholder={label} type={type}/>
-    <div>{touched && (error && <span>{error}</span>)}</div>
-  </div>
-</div>
-)
 
 const validate = (values) =>{
   const errors = {}
@@ -42,6 +42,5 @@ const validate = (values) =>{
 }
 
 export default reduxForm({
-  form: 'updatePost',
   validate,
 },null)(ProblemUpdateForm)
