@@ -4,7 +4,8 @@ import * as actions from '../actions'
 import './Problem.css';
 import {addProblem,
         removeProblem,} from '../lib/problems-helpers'
-import ProblemForm from './ProblemForm'
+import  ProblemCreateForm from './ProblemCreateForm'
+import  ProblemUpdateForm from './ProblemUpdateForm'
 import Idea from '../components/Idea'
 
 
@@ -24,6 +25,9 @@ class Problems extends Component {
                 get ideas for problem {problem.id}
               </button>
               <button onClick={(e)=>this.props.deleteProblem(problem.id)}>Delete Post</button>
+              <br />
+              {/* partial assigned problem.id to pass along when redux form is submitted */}
+              <ProblemUpdateForm  onSubmit={this.props.updateProblem.bind(null,problem.id)}/>
             </div>
           </div>
             <div>
@@ -76,7 +80,7 @@ class Problems extends Component {
           {this.listProblems(this.props.problemsList)}
         </div>
           <br></br>
-          <ProblemForm onSubmit={this.props.newProblem} />
+          <ProblemCreateForm onSubmit={this.props.newProblem} />
       </div>
     )
   }

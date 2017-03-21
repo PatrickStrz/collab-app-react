@@ -1,21 +1,33 @@
 import axios from 'axios'
-import {PROBLEMS, DELETE_PROBLEM, NEW_PROBLEM} from './types'
+import {PROBLEMS,
+        DELETE_PROBLEM,
+        NEW_PROBLEM,
+        UPDATE_PROBLEM,} from './types'
 // import {BASE_URL_PRODUCTION} from './api-commons'
 import {BASE_URL} from './api-commons'
-
 // const BASE_URL_LOCAL = "http://localhost:3000"
 // const BASE_URL_PRODUCTION = "https://collab-app-2017.herokuapp.com/"
-
-
 
 export function newProblem(props){
   const request = axios.post(`${BASE_URL}/problems/`,{
     title:props.title,
     text: props.text
   })
-  
+
    return {
     type: NEW_PROBLEM,
+    payload: request
+  }
+}
+
+export function updateProblem(problemId, props){
+  const request = axios.put(`${BASE_URL}/problems/${problemId}`,{
+    title:props.title,
+    text: props.text
+  })
+
+   return {
+    type: UPDATE_PROBLEM,
     payload: request
   }
 }
@@ -37,5 +49,4 @@ export function getProblems(){
       type: PROBLEMS,
       payload: request
   }
-
 }
