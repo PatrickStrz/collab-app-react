@@ -8,15 +8,16 @@ import {BASE_URL} from './api-commons'
 // const BASE_URL_LOCAL = "http://localhost:3000"
 // const BASE_URL_PRODUCTION = "https://collab-app-2017.herokuapp.com/"
 
-export function newProblem(props){
-  const request = axios.post(`${BASE_URL}/problems/`,{
-    title:props.title,
-    text: props.text
-  })
 
-   return {
-    type: NEW_PROBLEM,
-    payload: request
+export function newProblem(props){
+  return function (dispatch){
+    axios.post(`${BASE_URL}/problems/`,{
+      title:props.title,
+      text: props.text
+    })
+    .then(response => {
+      dispatch({type:NEW_PROBLEM, payload:response.data})
+    })
   }
 }
 
