@@ -1,14 +1,11 @@
 import axios from 'axios'
-import {PROBLEMS,
-        DELETE_PROBLEM,
-        NEW_PROBLEM,
-        UPDATE_PROBLEM,
-        CREATE_PROBLEM_ERROR} from './types'
-// import {BASE_URL_PRODUCTION} from './api-commons'
-import {BASE_URL} from './api-commons'
-// const BASE_URL_LOCAL = "http://localhost:3000"
-// const BASE_URL_PRODUCTION = "https://collab-app-2017.herokuapp.com/"
+import {PROBLEMS_READ,
+        PROBLEM_DELETE,
+        PROBLEM_CREATE,
+        PROBLEM_UPDATE,
+        PROBLEM_CREATE_ERROR} from './types'
 
+import {BASE_URL} from './api-commons'
 
 export function newProblem(props){
   return function (dispatch){
@@ -17,10 +14,10 @@ export function newProblem(props){
       text: props.text
     })
     .then(response => {
-      dispatch({type:NEW_PROBLEM, payload:response.data})
+      dispatch({type:PROBLEM_CREATE, payload:response.data})
     })
     .catch(response => {
-      dispatch({type:CREATE_PROBLEM_ERROR, payload:'error trying to submit problem'})
+      dispatch({type:PROBLEM_CREATE_ERROR, payload:'error trying to submit problem'})
     })
   }
 }
@@ -32,7 +29,7 @@ export function updateProblem(problemId, props){
   })
 
    return {
-    type: UPDATE_PROBLEM,
+    type: PROBLEM_UPDATE,
     payload: request
   }
 }
@@ -41,7 +38,7 @@ export function deleteProblem(problemId){
   const request = axios.delete(`${BASE_URL}/problems/${problemId}`)
 
   return {
-    type: DELETE_PROBLEM,
+    type: PROBLEM_DELETE,
     payload: request
   }
 }
@@ -51,7 +48,7 @@ export function getProblems(){
   const request = axios.get(`${BASE_URL}/problems`)
 
   return {
-      type: PROBLEMS,
+      type: PROBLEMS_READ,
       payload: request
   }
 }

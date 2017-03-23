@@ -1,7 +1,6 @@
 import React from 'react'
 import { Field,reduxForm } from 'redux-form'
 
-
   const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
   <div>
     <label>{label}</label>
@@ -37,9 +36,6 @@ import { Field,reduxForm } from 'redux-form'
         </form>
     )
   }
-
-
-
 
 export default reduxForm({
   validate,

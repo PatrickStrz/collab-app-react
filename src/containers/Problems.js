@@ -79,7 +79,8 @@ class Problems extends Component {
           {this.listProblems(this.props.problemsList)}
         </div>
           <br></br>
-          <ProblemCreateForm onSubmit={this.props.newProblem} submitError={this.props.problemCreateFormError} />
+          <ProblemCreateForm onSubmit={this.props.newProblem}
+                             submitError={this.props.problemCreateFormSubmitError} />
       </div>
     )
   }
@@ -91,7 +92,7 @@ const mapStateToProps = (state) => {
     problemsList: state.problems.problemsList,
     ideasForProblems: state.ideas.ideasForProblems,
     problemsReload: state.problems.problemsReload,
-    problemCreateFormError: state.problems.problemsCreateError
+    problemCreateFormSubmitError: state.problems.problemsCreateError
   }
 }
 
