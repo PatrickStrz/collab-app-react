@@ -1,8 +1,8 @@
-import React,{ Component } from 'react'
+import React from 'react'
 import { Field,reduxForm } from 'redux-form'
-class ProblemCreateForm extends Component{
 
-  renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+
+  const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
   <div>
     <label>{label}</label>
     <div>
@@ -12,36 +12,34 @@ class ProblemCreateForm extends Component{
   </div>
   )
 
-  render(){
+  const validate = (values) =>{
+    const errors = {}
+    if (!values.title){
+      errors.title = 'required'
+    }
+    if (!values.text){
+      errors.text = 'required'
+    }
+    return errors
+  }
 
-    const {handleSubmit, submitting} = this.props
-
+  const ProblemCreateForm = (props) => {
+    const {handleSubmit, submitting} = props
     return(
         <form onSubmit={handleSubmit}>
           <label>Title</label>
-          <Field name="title" component={this.renderField} type="text"/>
+          <Field name="title" component={renderField} type="text"/>
           <br/>
           <label>Text</label>
-          <Field name="text" component={this.renderField} type="text"/>
+          <Field name="text" component={renderField} type="text"/>
           <br/>
           <input disabled={submitting} type="submit" />
           <br></br>
-          <strong>{ this.props.submitError && this.props.submitError }</strong>
+          <strong>{ props.submitError && props.submitError }</strong>
         </form>
     )
   }
-}
 
-const validate = (values) =>{
-  const errors = {}
-  if (!values.title){
-    errors.title = 'required'
-  }
-  if (!values.text){
-    errors.text = 'required'
-  }
-  return errors
-}
 
 export default reduxForm({
   form: 'newProblem',
