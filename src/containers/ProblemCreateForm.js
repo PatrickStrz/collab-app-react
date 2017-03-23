@@ -25,6 +25,8 @@ class ProblemCreateForm extends Component{
           <Field name="text" component={this.renderField} type="text"/>
           <br/>
           <input disabled={submitting} type="submit" />
+          <br></br>
+          <strong>{ this.props.submitError && this.props.submitError }</strong>
         </form>
     )
   }

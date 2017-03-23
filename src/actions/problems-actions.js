@@ -2,7 +2,8 @@ import axios from 'axios'
 import {PROBLEMS,
         DELETE_PROBLEM,
         NEW_PROBLEM,
-        UPDATE_PROBLEM,} from './types'
+        UPDATE_PROBLEM,
+        CREATE_PROBLEM_ERROR} from './types'
 // import {BASE_URL_PRODUCTION} from './api-commons'
 import {BASE_URL} from './api-commons'
 // const BASE_URL_LOCAL = "http://localhost:3000"
@@ -17,6 +18,9 @@ export function newProblem(props){
     })
     .then(response => {
       dispatch({type:NEW_PROBLEM, payload:response.data})
+    })
+    .catch(response => {
+      dispatch({type:CREATE_PROBLEM_ERROR, payload:'error trying to submit problem'})
     })
   }
 }
