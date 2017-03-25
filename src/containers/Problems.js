@@ -69,18 +69,21 @@ class Problems extends Component {
   }
 
   render() {
-    if (this.props.problemsReload){
-      this.props.getProblems()
-    }
+    // if (this.props.problemsReload){
+    //   this.props.getProblems()
+    // }
     return (
       <div>
         <button onClick={this.props.getProblems}>Get All Problems</button>
         <div>
+          {this.props.problemsReadError && <strong>{this.props.problemsReadError}</strong>}
           {this.listProblems(this.props.problemsList)}
         </div>
           <br></br>
-          <ProblemCreateForm onSubmit={this.props.newProblem}
-                             submitError={this.props.problemCreateFormSubmitError} />
+          <ProblemCreateForm
+            onSubmit={this.props.createProblem}
+            submitError={this.props.problemCreateFormSubmitError}
+          />
       </div>
     )
   }
@@ -90,6 +93,7 @@ const mapStateToProps = (state) => {
   return {
     likes: state.likes,
     problemsList: state.problems.problemsList,
+    problemsReadError: state.problems.problemsReadError,
     ideasForProblems: state.ideas.ideasForProblems,
     problemsReload: state.problems.problemsReload,
     problemCreateFormSubmitError: state.problems.problemsCreateError

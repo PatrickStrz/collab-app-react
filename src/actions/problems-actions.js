@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {PROBLEMS_READ,
+        PROBLEMS_READ_ERROR,
         PROBLEM_DELETE,
         PROBLEM_CREATE,
         PROBLEM_UPDATE,
@@ -7,7 +8,7 @@ import {PROBLEMS_READ,
 
 import {BASE_URL} from './api-commons'
 
-export function newProblem(props){
+export function createProblem(props){
   return function (dispatch){
     axios.post(`${BASE_URL}/problems/`,{
       title:props.title,
@@ -15,6 +16,7 @@ export function newProblem(props){
     })
     .then(response => {
       dispatch({type:PROBLEM_CREATE, payload:response.data})
+      dispatch(getProblems())
     })
     .catch(response => {
       dispatch({type:PROBLEM_CREATE_ERROR, payload:'error trying to submit problem'})
@@ -43,12 +45,27 @@ export function deleteProblem(problemId){
   }
 }
 
+
 export function getProblems(){
+  return function (dispatch){
 
-  const request = axios.get(`${BASE_URL}/problems`)
+    dispatch({
+      type: PROBLEMS_READ_ERROR,
+      payload: ''
+    })
 
-  return {
-      type: PROBLEMS_READ,
-      payload: request
+    axios.get(`${BASE_URL}/problems`)
+    .then( response =>{
+      dispatch({
+        type: PROBLEMS_READ,
+        payload: response
+      })
+    })
+    .catch( response => {
+      dispatch({
+        type: PROBLEMS_READ_ERROR,
+        payload: 'Error retrieving content.'
+      })
+    })
   }
 }

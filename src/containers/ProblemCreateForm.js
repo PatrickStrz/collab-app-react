@@ -42,6 +42,6 @@ import { Field,reduxForm } from 'redux-form'
 
 
 export default reduxForm({
-  form: 'newProblem',
+  form: 'problemCreate',
   validate,
 },null)(ProblemCreateForm)
