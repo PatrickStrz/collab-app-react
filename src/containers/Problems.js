@@ -14,6 +14,12 @@ class Problems extends Component {
     ideasVisibleForProblems: []
   }
 
+  componentWillReceiveProps(nextProps){
+    if (nextProps.problemsDidInvalidate){
+      this.props.getProblems()
+    }
+  }
+
   listProblems = (problems) => {
     return problems.map((problem)=> {
       return (
@@ -69,11 +75,12 @@ class Problems extends Component {
   }
 
   render() {
-    // if (this.props.problemsReload){
-    //   this.props.getProblems()
-    // }
+
+    const {problemIsFetching} = this.props
+
     return (
       <div>
+        {problemIsFetching && <strong>Loading ...</strong> }
         <button onClick={this.props.getProblems}>Get All Problems</button>
         <div>
           {this.props.problemsReadError && <strong>{this.props.problemsReadError}</strong>}
@@ -96,7 +103,9 @@ const mapStateToProps = (state) => {
     problemsReadError: state.problems.problemsReadError,
     ideasForProblems: state.ideas.ideasForProblems,
     problemsReload: state.problems.problemsReload,
-    problemCreateFormSubmitError: state.problems.problemsCreateError
+    problemCreateFormSubmitError: state.problems.problemsCreateError,
+    problemIsFetching: state.problems.isFetching,
+    problemsDidInvalidate: state.problems.didInvalidate
   }
 }
 
