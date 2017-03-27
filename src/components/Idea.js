@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 
-const Idea = (props)=>{
+const Idea = ({idea})=>{
   const ideaContainerStyle = {
     paddingBottom: "3px",
     paddingTop: "3px"
@@ -10,7 +10,6 @@ const Idea = (props)=>{
     color: "#ffffff",
     "textAlign": "center",
   }
-  const idea = props.idea
   return(
     <div className="grid-center" style={ideaContainerStyle}>
       <div className="col-2" style={ideaStyle}>
@@ -19,4 +18,9 @@ const Idea = (props)=>{
     </div>
   )
 }
+
+Idea.propTypes = {
+  idea: PropTypes.object.isRequired
+}
+
 export default Idea

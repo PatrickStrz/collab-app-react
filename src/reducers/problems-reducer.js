@@ -18,7 +18,7 @@ export default function(state=initialState, action){
       return { ...state, problemsList:action.payload.data, isFetching:false, didInvalidate:false}
 
     case PROBLEMS_READ_ERROR:
-      return { ...state, problemsReadError: action.payload}
+      return { ...state, problemsReadError: action.payload, isFetching:false}
 
     case PROBLEM_DELETE :
       return {...state, didInvalidate:true}

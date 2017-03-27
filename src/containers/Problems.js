@@ -7,9 +7,10 @@ import {addProblem,
 import  ProblemCreateForm from './ProblemCreateForm'
 import  ProblemUpdateForm from './ProblemUpdateForm'
 import Idea from '../components/Idea'
-
+import Problem from '../components/Problem'
 
 class Problems extends Component {
+
   state = {
     ideasVisibleForProblems: []
   }
@@ -21,24 +22,20 @@ class Problems extends Component {
   }
 
   listProblems = (problems) => {
+    const {deleteProblem, updateProblem} = this.props
     return problems.map((problem)=> {
       return (
         <div key={'problem-'+problem.id}>
-          <div className="grid-center" style={{ paddingTop:"5px", paddingBottom:"5px"}} >
-            <div className="col-6" style={{background:"rgb(75, 136, 241)"}}>
-              <p className='Problem'>{problem.title} | {problem.text}</p>
-              <button onClick={(e)=>{this.getIdeasClickHandler(problem.id)}}>
-                get ideas for problem {problem.id}
-              </button>
-              <button onClick={(e)=>this.props.deleteProblem(problem.id)}>Delete Problem</button>
-              <br />
-              {/* partial assigned problem.id to pass along when redux form is submitted */}
-              <ProblemUpdateForm  onSubmit={this.props.updateProblem.bind(null,problem.id)} form={`problemUpdate${problem.id}`}/>
-            </div>
+          <Problem
+            handleDelete={deleteProblem}
+            handleGetIdeas={this.getIdeasClickHandler}
+            problem={problem}
+          />
+          {/* partial assigned problem.id to pass along when redux form is submitted */}
+          <ProblemUpdateForm  onSubmit={updateProblem.bind(null,problem.id)} form={`problemUpdate${problem.id}`} />
+          <div>
+            {this.state.ideasVisibleForProblems.includes(problem.id) && this.listIdeasForProblems(problem.id)}
           </div>
-            <div>
-              {this.state.ideasVisibleForProblems.includes(problem.id) && this.listIdeasForProblems(problem.id)}
-            </div>
         </div>
       )
     })
@@ -66,7 +63,7 @@ class Problems extends Component {
     const ideasForProblems = this.props.ideasForProblems
     if (ideasForProblems.hasOwnProperty(problemId) && ideasForProblems[problemId].length !== 0) {
       return ideasForProblems[problemId].map((idea)=>{
-        return <Idea key={'idea'+idea.id} idea={idea} />
+        return <Idea key={'idea'+idea.id} idea={idea}  />
       })
     }
     else{
@@ -87,6 +84,7 @@ class Problems extends Component {
           {this.listProblems(this.props.problemsList)}
         </div>
           <br></br>
+          <h2>Add a new problem!</h2>
           <ProblemCreateForm
             onSubmit={this.props.createProblem}
             submitError={this.props.problemCreateFormSubmitError}
