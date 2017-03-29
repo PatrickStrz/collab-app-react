@@ -1,16 +1,18 @@
 import React, {PropTypes} from 'react'
 
 
-const Problem = ({handleDelete, handleGetIdeas, problem, isDeleting})=>{
+const Problem = ({handleDelete, handleGetIdeas, problem, isUpdating, isDeleting})=>{
   const isDeletingNow = ()=> isDeleting.includes(problem.id)
+  const isUpdatingNow = ()=> isUpdating.includes(problem.id)
 
   const styleGrid = { paddingTop:"5px",
                   paddingBottom:"5px",
-                  opacity: isDeletingNow() ? 0.5 : 1,
+                  // opacity: isDeletingNow() ? 0.5 : 1,
                   // background: isDeletingNow() && "rgb(195, 77, 88)",
                 }
   const styleCol = {
-                  background: isDeletingNow() ? "rgb(195, 77, 88)" : "rgb(75, 136, 241)"
+                  background: isDeletingNow() ? "rgb(195, 77, 88)" : "rgb(75, 136, 241)",
+                  opacity: isUpdatingNow() ? 0.5 : 1
                 }
   return(
 
@@ -31,7 +33,8 @@ Problem.propTypes = {
   handleDelete: PropTypes.func.isRequired,
   handleGetIdeas: PropTypes.func.isRequired,
   problem: PropTypes.object.isRequired,
-  isDeleting: PropTypes.array.isRequired
+  isUpdating: PropTypes.array.isRequired,
+  isDeleting: PropTypes.array.isRequired,
 }
 
 export default Problem

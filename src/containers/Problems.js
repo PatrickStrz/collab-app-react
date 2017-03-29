@@ -22,7 +22,7 @@ class Problems extends Component {
   }
 
   listProblems = (problems) => {
-    const {deleteProblem, updateProblem, isDeleting} = this.props
+    const {deleteProblem, updateProblem,isUpdating, isDeleting} = this.props
     return problems.map((problem)=> {
       return (
         <div key={'problem-'+problem.id}>
@@ -30,6 +30,7 @@ class Problems extends Component {
             handleDelete={deleteProblem}
             handleGetIdeas={this.getIdeasClickHandler}
             problem={problem}
+            isUpdating={isUpdating}
             isDeleting={isDeleting}
           />
           {/* partial assigned problem.id to pass along when redux form is submitted */}
@@ -105,7 +106,8 @@ const mapStateToProps = (state) => {
     problemCreateFormSubmitError: state.problems.problemsCreateError,
     problemIsFetching: state.problems.isFetching,
     problemsDidInvalidate: state.problems.didInvalidate,
-    isDeleting: state.problems.isDeleting
+    isUpdating: state.problems.isUpdating,
+    isDeleting: state.problems.isDeleting,
   }
 }
 
