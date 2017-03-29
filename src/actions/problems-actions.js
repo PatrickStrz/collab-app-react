@@ -2,7 +2,7 @@ import axios from 'axios'
 import {
   // PROBLEMS_READ,
         // PROBLEMS_READ_ERROR,
-        PROBLEM_DELETE,
+        // PROBLEM_DELETE,
         PROBLEM_CREATE,
         PROBLEM_UPDATE,
         PROBLEM_CREATE_ERROR,
@@ -10,8 +10,8 @@ import {
         RECEIVE_PROBLEMS_READ,
         PROBLEMS_READ_ERROR,
         // INVALIDATE_PROBLEMS,
-        // REQUEST_PROBLEM_DELETE,
-        // RECEIVE_PROBLEM_DELETE,
+        REQUEST_PROBLEM_DELETE,
+        RECEIVE_PROBLEM_DELETE,
         // PROBLEM_DELETE_ERROR,
         // REQUEST_PROBLEM_CREATE,
         // RECEIVE_PROBLEM_CREATE,
@@ -75,10 +75,20 @@ export function updateProblem(problemId, props){
 }
 
 export function deleteProblem(problemId){
-  const request = axios.delete(`${BASE_URL}/problems/${problemId}`)
-
-  return {
-    type: PROBLEM_DELETE,
-    payload: request
+  return (dispatch) => {
+    dispatch({
+      type: REQUEST_PROBLEM_DELETE,
+      problemId
+    })
+    axios.delete(`${BASE_URL}/problems/${problemId}`)
+    .then(response => {
+      dispatch({
+        type: RECEIVE_PROBLEM_DELETE,
+        problemId
+      })
+    })
+    .catch( response => {
+      console.log('error deleting the thing')
+    })
   }
 }

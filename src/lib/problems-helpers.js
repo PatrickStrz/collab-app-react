@@ -21,12 +21,10 @@ export const toggleIdeasForProblem = (problemId,problems)=> {
 // }
 
 export const removeProblem = (problemId,problems)=> {
-
+  
   const removeIndex = problems.indexOf(problemId)
 
-  return [...problems.slice(0,removeIndex),...problems.slice(removeIndex+1)
-  ]
-
+  return [...problems.slice(0,removeIndex),...problems.slice(removeIndex+1)]
 }
 
 
