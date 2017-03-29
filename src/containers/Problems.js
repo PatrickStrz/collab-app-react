@@ -75,7 +75,7 @@ class Problems extends Component {
 
   render() {
 
-    const {problemIsFetching} = this.props
+    const {problemIsFetching, isCreating} = this.props
 
     return (
       <div>
@@ -87,10 +87,12 @@ class Problems extends Component {
         </div>
           <br></br>
           <h2>Add a new problem!</h2>
-          <ProblemCreateForm
-            onSubmit={this.props.createProblem}
-            submitError={this.props.problemCreateFormSubmitError}
-          />
+          <div style = {{opacity: isCreating? 0.5 : 1.0 }}>
+            <ProblemCreateForm
+              onSubmit={this.props.createProblem}
+              submitError={this.props.problemCreateFormSubmitError}
+            />
+        </div>
       </div>
     )
   }
@@ -103,6 +105,7 @@ const mapStateToProps = (state) => {
     problemsReadError: state.problems.problemsReadError,
     ideasForProblems: state.ideas.ideasForProblems,
     problemsReload: state.problems.problemsReload,
+    isCreating: state.problems.isCreating,
     problemCreateFormSubmitError: state.problems.problemsCreateError,
     problemIsFetching: state.problems.isFetching,
     problemsDidInvalidate: state.problems.didInvalidate,

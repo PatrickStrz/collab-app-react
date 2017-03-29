@@ -1,11 +1,12 @@
-import {REQUEST_PROBLEMS_READ,
+import {
+        REQUEST_PROBLEM_CREATE,
+        RECEIVE_PROBLEM_CREATE,
+        REQUEST_PROBLEMS_READ,
         RECEIVE_PROBLEMS_READ,
         PROBLEMS_READ_ERROR,
-        // PROBLEM_DELETE,
         REQUEST_PROBLEM_DELETE,
         RECEIVE_PROBLEM_DELETE,
         PROBLEM_CREATE,
-        // PROBLEM_UPDATE,
         REQUEST_PROBLEM_UPDATE,
         RECEIVE_PROBLEM_UPDATE,
         PROBLEM_CREATE_ERROR} from '../actions/types'
@@ -17,8 +18,9 @@ const initialState = {
   problemsList: [],
   isFetching: false,
   didInvalidate: false,
+  isCreating: false,
   isUpdating: [],
-  isDeleting: [] }
+  isDeleting: [], }
 
 export default function(state=initialState, action){
 
@@ -35,8 +37,14 @@ export default function(state=initialState, action){
     case PROBLEM_CREATE:
       return {...state, didInvalidate: true}
 
+    case REQUEST_PROBLEM_CREATE:
+      return {...state, isCreating:true }
+
+    case RECEIVE_PROBLEM_CREATE:
+      return {...state, didInvalidate: true, isCreating:false}
+
     case PROBLEM_CREATE_ERROR:
-      return { ...state, problemsCreateError: action.payload }
+      return { ...state, problemsCreateError: action.payload, isCreating: false }
 
     case REQUEST_PROBLEM_UPDATE:
       const newIsUpdating = [...state.isUpdating, action.problemId]
