@@ -1,11 +1,10 @@
 import React,{Component} from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import './Problem.css';
 import {addProblem,
         removeProblem,} from '../lib/problems-helpers'
-import  ProblemCreateForm from './ProblemCreateForm'
-import  ProblemUpdateForm from './ProblemUpdateForm'
+import  ProblemCreateForm from '../components/ProblemCreateForm'
+import  ProblemUpdateForm from '../components/ProblemUpdateForm'
 import Idea from '../components/Idea'
 import Problem from '../components/Problem'
 
@@ -87,7 +86,7 @@ class Problems extends Component {
         </div>
           <br></br>
           <h2>Add a new problem!</h2>
-          <div style = {{opacity: isCreating? 0.5 : 1.0 }}>
+          <div style={{opacity: isCreating? 0.5 : 1.0 }}>
             <ProblemCreateForm
               onSubmit={this.props.createProblem}
               submitError={this.props.problemCreateFormSubmitError}
