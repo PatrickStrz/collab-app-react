@@ -1,8 +1,7 @@
 import React,{Component} from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import {addProblem,
-        removeProblem,} from '../lib/problems-helpers'
+import { addProblem, removeProblem, } from '../lib/problems-helpers'
 import  ProblemCreateForm from '../components/ProblemCreateForm'
 import  ProblemUpdateForm from '../components/ProblemUpdateForm'
 import Idea from '../components/Idea'
@@ -10,8 +9,10 @@ import Problem from '../components/Problem'
 
 class Problems extends Component {
 
-  state = {
-    ideasVisibleForProblems: []
+  state = { ideasVisibleForProblems: [] }
+
+  componentDidMount(){
+    this.props.getProblems()
   }
 
   componentWillReceiveProps(nextProps){
@@ -74,22 +75,30 @@ class Problems extends Component {
 
   render() {
 
-    const {problemIsFetching, isCreating} = this.props
+    const {
+          problemsList,
+          problemsIsFetching,
+          createProblem,
+          isCreating,
+          problemCreateFormSubmitError,
+          getProblems,
+          problemsReadError
+        } = this.props
 
     return (
-      <div>
-        {problemIsFetching && <strong>Loading ...</strong> }
-        <button onClick={this.props.getProblems}>Get All Problems</button>
+      <div style={{opacity: problemsIsFetching ? 0.5 : 1.0 }}>
+        {problemsIsFetching && <strong>Loading ...</strong> }
+        <button onClick={getProblems}>Get All Problems</button>
         <div>
-          {this.props.problemsReadError && <strong>{this.props.problemsReadError}</strong>}
-          {this.listProblems(this.props.problemsList)}
+          {problemsReadError && <strong>{problemsReadError}</strong>}
+          {this.listProblems(problemsList)}
         </div>
           <br></br>
           <h2>Add a new problem!</h2>
-          <div style={{opacity: isCreating? 0.5 : 1.0 }}>
+          <div style={{opacity: isCreating ? 0.5 : 1.0 }}>
             <ProblemCreateForm
-              onSubmit={this.props.createProblem}
-              submitError={this.props.problemCreateFormSubmitError}
+              onSubmit={createProblem}
+              submitError={problemCreateFormSubmitError}
             />
         </div>
       </div>
@@ -103,10 +112,9 @@ const mapStateToProps = (state) => {
     problemsList: state.problems.problemsList,
     problemsReadError: state.problems.problemsReadError,
     ideasForProblems: state.ideas.ideasForProblems,
-    problemsReload: state.problems.problemsReload,
     isCreating: state.problems.isCreating,
     problemCreateFormSubmitError: state.problems.problemsCreateError,
-    problemIsFetching: state.problems.isFetching,
+    problemsIsFetching: state.problems.isFetching,
     problemsDidInvalidate: state.problems.didInvalidate,
     isUpdating: state.problems.isUpdating,
     isDeleting: state.problems.isDeleting,
