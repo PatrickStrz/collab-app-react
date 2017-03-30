@@ -1,5 +1,5 @@
 import React from 'react'
-import { Field,reduxForm } from 'redux-form'
+import { Field,reduxForm, } from 'redux-form'
 
 
   const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
@@ -24,7 +24,7 @@ import { Field,reduxForm } from 'redux-form'
   }
 
   const ProblemCreateForm = (props) => {
-    const {handleSubmit, submitting} = props
+    const {handleSubmit, submitting, error} = props
     return(
         <form onSubmit={handleSubmit}>
           <label>Title</label>
@@ -35,7 +35,8 @@ import { Field,reduxForm } from 'redux-form'
           <br/>
           <input disabled={submitting} type="submit" />
           <br></br>
-          <strong>{ props.submitError && props.submitError }</strong>
+          <br></br>
+          <strong style={{ color: '#ed3a3a', paddingTop:'5px'}} >{error && error}</strong>
         </form>
     )
   }

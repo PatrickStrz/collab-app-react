@@ -98,7 +98,6 @@ class Problems extends Component {
           <div style={{opacity: isCreating ? 0.5 : 1.0 }}>
             <ProblemCreateForm
               onSubmit={createProblem}
-              submitError={problemCreateFormSubmitError}
             />
         </div>
       </div>
@@ -113,7 +112,6 @@ const mapStateToProps = (state) => {
     problemsReadError: state.problems.problemsReadError,
     ideasForProblems: state.ideas.ideasForProblems,
     isCreating: state.problems.isCreating,
-    problemCreateFormSubmitError: state.problems.problemsCreateError,
     problemsIsFetching: state.problems.isFetching,
     problemsDidInvalidate: state.problems.didInvalidate,
     isUpdating: state.problems.isUpdating,

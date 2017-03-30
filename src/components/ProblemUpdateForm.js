@@ -23,7 +23,7 @@ import { Field,reduxForm } from 'redux-form'
   }
 
   const ProblemUpdateForm = (props) => {
-    const {handleSubmit, submitting} = props
+    const {handleSubmit, submitting, error} = props
     return(
         <form onSubmit={handleSubmit} >
           <label>Title</label>
@@ -33,6 +33,9 @@ import { Field,reduxForm } from 'redux-form'
           <Field name="text" component={renderField} type="text"/>
           <br/>
           <input type="submit" disabled={submitting} title="update"/>
+          <br></br>
+          <br></br>
+          <strong style={{ color: '#ed3a3a', paddingTop:'5px'}} >{error && error}</strong>
         </form>
     )
   }

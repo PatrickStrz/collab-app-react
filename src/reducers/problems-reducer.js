@@ -9,6 +9,7 @@ import {
         PROBLEM_CREATE,
         REQUEST_PROBLEM_UPDATE,
         RECEIVE_PROBLEM_UPDATE,
+        PROBLEM_UPDATE_ERROR,
         PROBLEM_CREATE_ERROR} from '../actions/types'
 
 import {removeValueFromList} from '../lib/array-helpers'
@@ -44,16 +45,20 @@ export default function(state=initialState, action){
       return {...state, didInvalidate: true, isCreating:false}
 
     case PROBLEM_CREATE_ERROR:
-      return { ...state, problemsCreateError: action.payload, isCreating: false }
+      return { ...state, isCreating: false }
 
-    case REQUEST_PROBLEM_UPDATE:
-      const newIsUpdating = [...state.isUpdating, action.problemId]
-      return {...state, isUpdating: newIsUpdating }
-
-    case RECEIVE_PROBLEM_UPDATE:
-      const nextIsUpdating = removeValueFromList(action.problemId, state.isUpdating)
+    case REQUEST_PROBLEM_UPDATE: {
+      const nextIsUpdating = [...state.isUpdating, action.problemId]
+      return {...state, isUpdating: nextIsUpdating }
+    }
+    case RECEIVE_PROBLEM_UPDATE: {
+      let nextIsUpdating = removeValueFromList(action.problemId, state.isUpdating)
       return { ...state, didInvalidate: true, isUpdating: nextIsUpdating }
-
+    }
+    case PROBLEM_UPDATE_ERROR: {
+      let nextIsUpdating = removeValueFromList(action.problemId, state.isUpdating)
+      return { ...state, didInvalidate: true, isUpdating: nextIsUpdating }
+    }
     case REQUEST_PROBLEM_DELETE:
       const newIsDeleting = [...state.isDeleting, action.problemId]
       return { ...state, isDeleting: newIsDeleting }
