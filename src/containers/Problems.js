@@ -80,7 +80,6 @@ class Problems extends Component {
           problemsIsFetching,
           createProblem,
           isCreating,
-          problemCreateFormSubmitError,
           getProblems,
           problemsReadError
         } = this.props
@@ -88,7 +87,7 @@ class Problems extends Component {
     return (
       <div style={{opacity: problemsIsFetching ? 0.5 : 1.0 }}>
         {problemsIsFetching && <strong>Loading ...</strong> }
-        <button onClick={getProblems}>Get All Problems</button>
+        <button onClick={getProblems}>Reload Problems</button>
         <div>
           {problemsReadError && <strong>{problemsReadError}</strong>}
           {this.listProblems(problemsList)}

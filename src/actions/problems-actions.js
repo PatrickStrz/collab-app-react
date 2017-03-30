@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { SubmissionError } from 'redux-form'
 import {
-        // PROBLEMS_READ_ERROR,
         REQUEST_PROBLEM_CREATE,
         RECEIVE_PROBLEM_CREATE,
         PROBLEM_CREATE_ERROR,
@@ -12,8 +11,8 @@ import {
 
         REQUEST_PROBLEM_DELETE,
         RECEIVE_PROBLEM_DELETE,
-        // PROBLEM_DELETE_ERROR,
-        // PROBLEM_CREATE_ERROR,
+        PROBLEM_DELETE_ERROR,
+
         REQUEST_PROBLEM_UPDATE,
         RECEIVE_PROBLEM_UPDATE,
         PROBLEM_UPDATE_ERROR,
@@ -77,7 +76,10 @@ export function deleteProblem(problemId){
       })
     })
     .catch( response => {
-      console.log('error deleting the thing')
+      dispatch({
+        type: PROBLEM_DELETE_ERROR,
+          problemId
+      })
     })
   }
 }

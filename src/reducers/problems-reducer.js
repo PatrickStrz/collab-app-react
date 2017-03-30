@@ -1,16 +1,20 @@
 import {
         REQUEST_PROBLEM_CREATE,
         RECEIVE_PROBLEM_CREATE,
+        PROBLEM_CREATE_ERROR,
+
         REQUEST_PROBLEMS_READ,
         RECEIVE_PROBLEMS_READ,
         PROBLEMS_READ_ERROR,
+
         REQUEST_PROBLEM_DELETE,
         RECEIVE_PROBLEM_DELETE,
-        PROBLEM_CREATE,
+        PROBLEM_DELETE_ERROR,
+
         REQUEST_PROBLEM_UPDATE,
         RECEIVE_PROBLEM_UPDATE,
         PROBLEM_UPDATE_ERROR,
-        PROBLEM_CREATE_ERROR} from '../actions/types'
+        } from '../actions/types'
 
 import {removeValueFromList} from '../lib/array-helpers'
 
@@ -35,9 +39,6 @@ export default function(state=initialState, action){
     case PROBLEMS_READ_ERROR:
       return { ...state, problemsReadError: action.payload, isFetching: false}
 
-    case PROBLEM_CREATE:
-      return {...state, didInvalidate: true}
-
     case REQUEST_PROBLEM_CREATE:
       return {...state, isCreating:true }
 
@@ -51,21 +52,31 @@ export default function(state=initialState, action){
       const nextIsUpdating = [...state.isUpdating, action.problemId]
       return {...state, isUpdating: nextIsUpdating }
     }
+
     case RECEIVE_PROBLEM_UPDATE: {
-      let nextIsUpdating = removeValueFromList(action.problemId, state.isUpdating)
+      const nextIsUpdating = removeValueFromList(action.problemId, state.isUpdating)
       return { ...state, didInvalidate: true, isUpdating: nextIsUpdating }
     }
+
     case PROBLEM_UPDATE_ERROR: {
-      let nextIsUpdating = removeValueFromList(action.problemId, state.isUpdating)
+      const nextIsUpdating = removeValueFromList(action.problemId, state.isUpdating)
       return { ...state, didInvalidate: true, isUpdating: nextIsUpdating }
     }
-    case REQUEST_PROBLEM_DELETE:
+
+    case REQUEST_PROBLEM_DELETE:{
       const newIsDeleting = [...state.isDeleting, action.problemId]
       return { ...state, isDeleting: newIsDeleting }
+    }
 
-    case RECEIVE_PROBLEM_DELETE:
+    case RECEIVE_PROBLEM_DELETE:{
       const nextIsDeleting = removeValueFromList(action.problemId, state.isDeleting)
       return { ...state, didInvalidate: true, isDeleting: nextIsDeleting }
+    }
+
+    case PROBLEM_DELETE_ERROR: {
+      const nextIsDeleting = removeValueFromList(action.problemId, state.isDeleting)
+      return { ...state, didInvalidate: true, isDeleting: nextIsDeleting }
+    }
 
     default:
       return state
