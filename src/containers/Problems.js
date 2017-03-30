@@ -73,15 +73,25 @@ class Problems extends Component {
     }
   }
 
+  displayProblemCreateForm = ()=> {
+    const {createProblem, isCreating} = this.props
+    return(
+      <div style={{opacity: isCreating ? 0.5 : 1.0 }}>
+        <ProblemCreateForm
+          onSubmit={createProblem}
+        />
+    </div>
+    )
+  }
+
   render() {
 
     const {
           problemsList,
           problemsIsFetching,
-          createProblem,
-          isCreating,
           getProblems,
-          problemsReadError
+          problemsReadError,
+          problemCreateFormVisible
         } = this.props
 
     return (
@@ -93,12 +103,9 @@ class Problems extends Component {
           {this.listProblems(problemsList)}
         </div>
           <br></br>
-          <h2>Add a new problem!</h2>
-          <div style={{opacity: isCreating ? 0.5 : 1.0 }}>
-            <ProblemCreateForm
-              onSubmit={createProblem}
-            />
-        </div>
+          <h3>Add a new problem</h3>
+          <button onClick={ (e)=>{ this.props.showProblemCreateForm() } }> Add a new Problem</button>
+          { problemCreateFormVisible && this.displayProblemCreateForm() }
       </div>
     )
   }
@@ -115,6 +122,7 @@ const mapStateToProps = (state) => {
     problemsDidInvalidate: state.problems.didInvalidate,
     isUpdating: state.problems.isUpdating,
     isDeleting: state.problems.isDeleting,
+    problemCreateFormVisible: state.problems.problemCreateFormVisible
   }
 }
 

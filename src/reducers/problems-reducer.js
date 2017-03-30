@@ -1,4 +1,5 @@
 import {
+        SHOW_PROBLEM_CREATE_FORM,
         REQUEST_PROBLEM_CREATE,
         RECEIVE_PROBLEM_CREATE,
         PROBLEM_CREATE_ERROR,
@@ -25,7 +26,8 @@ const initialState = {
   didInvalidate: false,
   isCreating: false,
   isUpdating: [],
-  isDeleting: [], }
+  isDeleting: [],
+  problemCreateFormVisible:false}
 
 export default function(state=initialState, action){
 
@@ -39,11 +41,14 @@ export default function(state=initialState, action){
     case PROBLEMS_READ_ERROR:
       return { ...state, problemsReadError: action.payload, isFetching: false}
 
+    case SHOW_PROBLEM_CREATE_FORM:
+      return{ ...state, problemCreateFormVisible: !state.problemCreateFormVisible }
+
     case REQUEST_PROBLEM_CREATE:
       return {...state, isCreating:true }
 
     case RECEIVE_PROBLEM_CREATE:
-      return {...state, didInvalidate: true, isCreating:false}
+      return {...state, didInvalidate: true, isCreating:false, problemCreateFormVisible:false}
 
     case PROBLEM_CREATE_ERROR:
       return { ...state, isCreating: false }

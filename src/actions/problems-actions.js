@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { SubmissionError } from 'redux-form'
 import {
+        SHOW_PROBLEM_CREATE_FORM,
         REQUEST_PROBLEM_CREATE,
         RECEIVE_PROBLEM_CREATE,
         PROBLEM_CREATE_ERROR,
@@ -108,4 +109,10 @@ export function updateProblem(problemId, data){
       throw new SubmissionError( {_error: 'oops update didn\'t work',})
     })
   }
+}
+
+export const showProblemCreateForm = ()=> {
+  return({
+    type: SHOW_PROBLEM_CREATE_FORM
+  })
 }
