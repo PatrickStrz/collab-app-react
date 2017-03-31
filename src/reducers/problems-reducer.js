@@ -12,12 +12,13 @@ import {
         RECEIVE_PROBLEM_DELETE,
         PROBLEM_DELETE_ERROR,
 
+        SHOW_PROBLEM_UPDATE_FORM,
         REQUEST_PROBLEM_UPDATE,
         RECEIVE_PROBLEM_UPDATE,
         PROBLEM_UPDATE_ERROR,
         } from '../actions/types'
 
-import {removeValueFromList} from '../lib/array-helpers'
+import {removeValueFromList ,toggleValueInList} from '../lib/array-helpers'
 
 //dan abramov idiomatic redux lesson 20/21 for refactoring reducers
 const initialState = {
@@ -27,7 +28,9 @@ const initialState = {
   isCreating: false,
   isUpdating: [],
   isDeleting: [],
-  problemCreateFormVisible:false}
+  problemCreateFormVisible:false,
+  visibleProblemUpdateForms:[],
+}
 
 export default function(state=initialState, action){
 
@@ -53,6 +56,11 @@ export default function(state=initialState, action){
     case PROBLEM_CREATE_ERROR:
       return { ...state, isCreating: false }
 
+    case SHOW_PROBLEM_UPDATE_FORM: {
+      const nextVisibleProblemUpdateForms = toggleValueInList(action.problemId, state.visibleProblemUpdateForms)
+      return {...state, visibleProblemUpdateForms: nextVisibleProblemUpdateForms }
+    }
+
     case REQUEST_PROBLEM_UPDATE: {
       const nextIsUpdating = [...state.isUpdating, action.problemId]
       return {...state, isUpdating: nextIsUpdating }
@@ -60,7 +68,13 @@ export default function(state=initialState, action){
 
     case RECEIVE_PROBLEM_UPDATE: {
       const nextIsUpdating = removeValueFromList(action.problemId, state.isUpdating)
-      return { ...state, didInvalidate: true, isUpdating: nextIsUpdating }
+      const nextVisibleProblemUpdateForms = removeValueFromList(action.problemId, state.visibleProblemUpdateForms)
+      return {
+        ...state,
+        didInvalidate: true,
+        isUpdating: nextIsUpdating,
+        visibleProblemUpdateForms: nextVisibleProblemUpdateForms,
+      }
     }
 
     case PROBLEM_UPDATE_ERROR: {

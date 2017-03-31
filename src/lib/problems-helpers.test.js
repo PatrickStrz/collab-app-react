@@ -62,7 +62,6 @@ test('toggleIdeasListForProblem should not mutate existing list', ()=> {
   expect(result).not.toBe(expected)
 })
 
-
 test('removeProblem should remove a problem by id', ()=>{
   const startProblems = [1,27,4,29]
   const problemId = 4

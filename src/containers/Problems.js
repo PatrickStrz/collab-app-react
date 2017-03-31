@@ -21,16 +21,30 @@ class Problems extends Component {
     }
   }
 
+  showProblemUpdateForm = (problem) =>{
+    const {updateProblem} = this.props
+    return(
+      <ProblemUpdateForm
+        initialValues={{title:problem.title, text:problem.text}}
+        // partial assigned problem.id to pass along when redux form is submitted
+        onSubmit={updateProblem.bind(null,problem.id)}
+        form={`problemUpdate${problem.id}`}
+      />
+    )
+  }
+
   listProblems = (problems) => {
 
     const {
       deleteProblem,
-      updateProblem,
       isUpdating,
-      isDeleting
+      isDeleting,
+      visibleProblemUpdateForms,
+      showProblemUpdateForm,
     } = this.props
 
     return problems.map((problem)=> {
+      console.log('prob:'+problem)
       return (
         <div key={'problem-'+problem.id}>
           <Problem
@@ -39,13 +53,11 @@ class Problems extends Component {
             problem={problem}
             isUpdating={isUpdating}
             isDeleting={isDeleting}
+            showProblemUpdateForm={showProblemUpdateForm}
           />
-          {/* partial assigned problem.id to pass along when redux form is submitted */}
-          <ProblemUpdateForm
-            initialValues={{title:problem.title, text:problem.text}}
-            onSubmit={updateProblem.bind(null,problem.id)}
-            form={`problemUpdate${problem.id}`}
-          />
+
+          { visibleProblemUpdateForms.includes(problem.id) && this.showProblemUpdateForm(problem)}
+
           <div>
             {this.state.ideasVisibleForProblems.includes(problem.id) && this.listIdeasForProblems(problem.id)}
           </div>
@@ -133,7 +145,8 @@ const mapStateToProps = (state) => {
     problemsDidInvalidate: state.problems.didInvalidate,
     isUpdating: state.problems.isUpdating,
     isDeleting: state.problems.isDeleting,
-    problemCreateFormVisible: state.problems.problemCreateFormVisible
+    problemCreateFormVisible: state.problems.problemCreateFormVisible,
+    visibleProblemUpdateForms: state.problems.visibleProblemUpdateForms
   }
 }
 

@@ -1,21 +1,30 @@
 import React, {PropTypes} from 'react'
 
 
-const Problem = ({handleDelete, handleGetIdeas, problem, isUpdating, isDeleting})=>{
+const Problem = (props)=>{
+
+  const {
+    handleDelete,
+    handleGetIdeas,
+    problem,
+    isUpdating,
+    isDeleting,
+    showProblemUpdateForm
+  } = props
+
   const isDeletingNow = ()=> isDeleting.includes(problem.id)
   const isUpdatingNow = ()=> isUpdating.includes(problem.id)
 
-  const styleGrid = { paddingTop:"5px",
+  const styleGrid = {
+                  paddingTop:"5px",
                   paddingBottom:"5px",
-                  // opacity: isDeletingNow() ? 0.5 : 1,
-                  // background: isDeletingNow() && "rgb(195, 77, 88)",
                 }
+
   const styleCol = {
                   background: isDeletingNow() ? "rgb(195, 77, 88)" : "rgb(75, 136, 241)",
                   opacity: isUpdatingNow() ? 0.5 : 1
                 }
   return(
-
     <div className="grid-center" style={styleGrid} >
       <div className="col-6" style={styleCol}>
         <p className='Problem'>{problem.title} | {problem.text}</p>
@@ -24,6 +33,8 @@ const Problem = ({handleDelete, handleGetIdeas, problem, isUpdating, isDeleting}
           get ideas for problem {problem.id}
         </button>
         <br />
+        <button onClick={ ()=> showProblemUpdateForm(problem.id) }>update</button>
+
       </div>
     </div>
   )
@@ -35,6 +46,7 @@ Problem.propTypes = {
   problem: PropTypes.object.isRequired,
   isUpdating: PropTypes.array.isRequired,
   isDeleting: PropTypes.array.isRequired,
+  showProblemUpdateForm: PropTypes.func.isRequired
 }
 
 export default Problem

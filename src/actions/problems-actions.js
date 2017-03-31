@@ -14,6 +14,7 @@ import {
         RECEIVE_PROBLEM_DELETE,
         PROBLEM_DELETE_ERROR,
 
+        SHOW_PROBLEM_UPDATE_FORM,
         REQUEST_PROBLEM_UPDATE,
         RECEIVE_PROBLEM_UPDATE,
         PROBLEM_UPDATE_ERROR,
@@ -83,6 +84,14 @@ export function deleteProblem(problemId){
       })
     })
   }
+}
+
+export function showProblemUpdateForm(problemId){
+  console.log(problemId)
+  return ({
+    type: SHOW_PROBLEM_UPDATE_FORM,
+    problemId
+  })
 }
 
 export function updateProblem(problemId, data){
