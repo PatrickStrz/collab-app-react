@@ -26,7 +26,7 @@ const Problem = (props)=>{
                 }
   return(
     <div className="grid-center" style={styleGrid} >
-      <div className="col-6" style={styleCol}>
+      <div className="col-6_sm-12" style={styleCol}>
         <p className='Problem'>{problem.title} | {problem.text}</p>
         <button onClick={(e)=>handleDelete(problem.id)}>Delete Problem</button>
         <button onClick={(e)=>handleGetIdeas(problem.id)}>
