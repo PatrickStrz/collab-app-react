@@ -44,7 +44,6 @@ class Problems extends Component {
     } = this.props
 
     return problems.map((problem)=> {
-      console.log('prob:'+problem)
       return (
         <div key={'problem-'+problem.id}>
           <Problem

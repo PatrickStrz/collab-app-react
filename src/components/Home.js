@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connectProfile} from '../auth';
-import {Link} from 'react-router';
+// import {Link} from 'react-router';
 import Problems from '../containers/Problems'
+import MyAwesomeReactComponent from '../components/MyAwesomeReactComponent'
 
 class Home extends Component {
   static propTypes = {
@@ -11,8 +12,9 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <p><Link to="/profile/edit">profile</Link> | <a href="https://auth0.com/docs/quickstart/spa/react">Auth0 docs</a></p>
+        {/* <p><Link to="/profile/edit">profile</Link> | <a href="https://auth0.com/docs/quickstart/spa/react">Auth0 docs</a></p> */}
         <Problems />
+        <MyAwesomeReactComponent />
       </div>
     );
   }

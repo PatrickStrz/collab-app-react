@@ -87,7 +87,6 @@ export function deleteProblem(problemId){
 }
 
 export function showProblemUpdateForm(problemId){
-  console.log(problemId)
   return ({
     type: SHOW_PROBLEM_UPDATE_FORM,
     problemId
