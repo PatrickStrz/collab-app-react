@@ -79,7 +79,7 @@ export default function(state=initialState, action){
 
     case PROBLEM_UPDATE_ERROR: {
       const nextIsUpdating = removeValueFromList(action.problemId, state.isUpdating)
-      return { ...state, didInvalidate: true, isUpdating: nextIsUpdating }
+      return { ...state, isUpdating: nextIsUpdating }
     }
 
     case REQUEST_PROBLEM_DELETE:{
