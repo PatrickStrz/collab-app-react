@@ -6,6 +6,12 @@ import  ProblemCreateForm from '../components/ProblemCreateForm'
 import  ProblemUpdateForm from '../components/ProblemUpdateForm'
 import Idea from '../components/Idea'
 import Problem from '../components/Problem'
+import LoadingBar from '../components/commons/LoadingBar'
+import ReloadButton from '../components/commons/ReloadButton'
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
+
 
 class Problems extends Component {
 
@@ -113,20 +119,40 @@ class Problems extends Component {
           problemsIsFetching,
           getProblems,
           problemsReadError,
-          problemCreateFormVisible
+          showProblemCreateForm,
+          problemCreateFormVisible,
+
         } = this.props
 
     return (
+
       <div style={{opacity: problemsIsFetching ? 0.5 : 1.0 }}>
-        {problemsIsFetching && <strong>Loading ...</strong> }
-        <button onClick={getProblems}>Reload Problems</button>
+        <MuiThemeProvider>
+          <RaisedButton
+            label="reload"
+            primary={true}
+            onClick={getProblems}
+          />
+        </MuiThemeProvider>
+        <br></br>
+        <br></br>
+        <div className="grid-center">
+          <div className="col-8_sm-12">
+            {problemsIsFetching && <LoadingBar /> }
+          </div>
+        </div>
         <div>
           {problemsReadError && <strong>{problemsReadError}</strong>}
           {this.listProblems(problemsList)}
         </div>
           <br></br>
-          <h3>Add a new problem</h3>
-          <button onClick={ (e)=>{ this.props.showProblemCreateForm() } }> Add a new Problem</button>
+          <MuiThemeProvider>
+            <RaisedButton
+              label="Add a new problem"
+              secondary={true}
+              onClick={(e)=>{showProblemCreateForm()}}
+            />
+          </MuiThemeProvider>
           { problemCreateFormVisible && this.displayProblemCreateForm() }
       </div>
     )

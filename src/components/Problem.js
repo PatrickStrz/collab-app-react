@@ -1,4 +1,8 @@
 import React, {PropTypes} from 'react'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
+import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 
 
 const Problem = (props)=>{
@@ -21,22 +25,36 @@ const Problem = (props)=>{
                 }
 
   const styleCol = {
-                  background: isDeletingNow() ? "rgb(195, 77, 88)" : "rgb(75, 136, 241)",
+                  background: isDeletingNow() ? "rgb(195, 77, 88)" : "#ffffff",
                   opacity: isUpdatingNow() ? 0.5 : 1
                 }
   return(
-    <div className="grid-center" style={styleGrid} >
-      <div className="col-6_sm-12" style={styleCol}>
-        <p className='Problem'>{problem.title} | {problem.text}</p>
-        <button onClick={(e)=>handleDelete(problem.id)}>Delete Problem</button>
-        <button onClick={(e)=>handleGetIdeas(problem.id)}>
-          get ideas for problem {problem.id}
-        </button>
-        <br />
-        <button onClick={ ()=> showProblemUpdateForm(problem.id) }>update</button>
+    <MuiThemeProvider>
 
-      </div>
-    </div>
+        <div className="grid-center" style={styleGrid} >
+
+          <div className="col-10_sm-12" >
+            <Card style={styleCol}>
+              <CardTitle style={{background:'#3b57c8', color:'#ffffff'}}>{problem.title}</CardTitle>
+              <CardText>{problem.text}</CardText>
+            {/* <p className='Problem'></p> */}
+            <RaisedButton label={`get ideas for problem ${problem.id}`} onClick={(e)=>handleGetIdeas(problem.id)}
+                          >
+            </RaisedButton>
+
+            <RaisedButton label='update'onClick={ ()=> showProblemUpdateForm(problem.id) }
+                          style={{paddingRight:'2px'}}></RaisedButton>
+
+            <RaisedButton label="Delete" onClick={(e)=>handleDelete(problem.id)}
+                          style={{paddingRight:'2px'}}>
+            </RaisedButton>
+
+            </Card>
+          </div>
+
+        </div>
+
+    </MuiThemeProvider>
   )
 }
 
