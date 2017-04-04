@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {connectProfile, logout} from '../auth';
 import './Site.css';
-
+import Navbar from './Navbar'
 class Site extends Component {
   static propTypes = {
     ...connectProfile.PropTypes,
@@ -12,10 +12,11 @@ class Site extends Component {
   render() {
     return (
       <div className="Site">
-        <div className="Site-header">
+        {/* <div className="Site-header"> */}
           {/* <img src={logo} className="Site-logo" alt="logo" /> */}
-          {this.renderUserControls()}
-        </div>
+          {/* {this.renderUserControls()} */}
+        {/* </div> */}
+        <Navbar />
         <div className="Site-page">
           {this.props.children}
         </div>

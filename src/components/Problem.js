@@ -1,8 +1,10 @@
 import React, {PropTypes} from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Card, CardTitle, CardText} from 'material-ui/Card'
-import RaisedButton from 'material-ui/RaisedButton'
-
+import IconButton from 'material-ui/IconButton'
+import Delete from 'material-ui/svg-icons/action/delete'
+import ModeEdit from 'material-ui/svg-icons/editor/mode-edit'
+import ArrowDropDownCircle from 'material-ui/svg-icons/navigation/arrow-drop-down-circle'
 
 const Problem = (props)=>{
 
@@ -24,38 +26,45 @@ const Problem = (props)=>{
   }
 
   const styleCol = {
-    background: isDeletingNow() ? "rgb(195, 77, 88)" : "#ffffff",
+    background: "rgb(255, 255, 255)",
     opacity: isUpdatingNow() ? 0.5 : 1
   }
+
+  const styleTitle = {
+    background: isDeletingNow() ? "rgb(213, 50, 50)" : "rgb(59, 87, 200)",
+    color:'rgb(255, 255, 255)'
+  }
+
   return(
     <MuiThemeProvider>
-
         <div className="grid-center" style={styleGrid} >
-
           <div className="col-10_sm-12" >
             <Card style={styleCol}>
-              <CardTitle style={{background:'#3b57c8', color:'#ffffff'}}>{problem.title}</CardTitle>
+              <CardTitle style={styleTitle}>{problem.title}</CardTitle>
               <CardText>{problem.text}</CardText>
-            {/* <p className='Problem'></p> */}
-            <RaisedButton
-              label={`get ideas for problem ${problem.id}`} onClick={(e)=>handleGetIdeas(problem.id)}
-            />
-
-            <RaisedButton
-              label='update'onClick={ ()=> showProblemUpdateForm(problem.id) }
-              style={{paddingRight:'2px'}}
-            />
-            <RaisedButton
-              label="Delete"
-              onClick={(e)=>handleDelete(problem.id)}
-              style={{paddingRight:'2px'}}
-            />
-
+              <IconButton>
+                <ArrowDropDownCircle
+                  onClick={(e)=>handleGetIdeas(problem.id)}
+                  color="rgb(200, 59, 101)"
+                  hoverColor="rgb(4, 179, 203)"
+                />
+              </IconButton>
+              <IconButton>
+                <ModeEdit
+                  onClick={()=> showProblemUpdateForm(problem.id)}
+                  color="rgb(184, 176, 176)"
+                  hoverColor="rgb(4, 179, 203)"
+                />
+              </IconButton>
+              <IconButton>
+                <Delete onClick={()=>handleDelete(problem.id)}
+                  color="rgb(184, 176, 176)"
+                  hoverColor="rgb(209, 65, 65)"
+                />
+              </IconButton>
             </Card>
           </div>
-
         </div>
-
     </MuiThemeProvider>
   )
 }
