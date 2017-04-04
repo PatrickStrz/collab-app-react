@@ -1,16 +1,8 @@
 import React from 'react'
 import { Field,reduxForm, } from 'redux-form'
-
-
-  const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
-  <div>
-    <label>{label}</label>
-    <div>
-      <input {...input} placeholder={label} type={type}/>
-      <div>{touched && (error && <span>{error}</span>)}</div>
-    </div>
-  </div>
-  )
+import {TextField} from 'redux-form-material-ui'
+import FlatButton from 'material-ui/FlatButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
   const validate = (values) =>{
     const errors = {}
@@ -26,21 +18,21 @@ import { Field,reduxForm, } from 'redux-form'
   const ProblemCreateForm = (props) => {
     const {handleSubmit, submitting, error} = props
     return(
+      <MuiThemeProvider>
         <form onSubmit={handleSubmit}>
-          <label>Title</label>
-          <Field name="title" component={renderField} type="text"/>
-          <br/>
-          <label>Text</label>
-          <Field name="text" component={renderField} type="text"/>
-          <br/>
-          <input disabled={submitting} type="submit" />
-          <br></br>
-          <br></br>
+          <Field floatingLabelText="title" name="title" component={TextField}/>
+          <br />
+          <Field floatingLabelText="text" name="text" component={TextField} type="text"/>
+          <br />
+          <br />
+          <FlatButton label="Submit" secondary={true} type="submit" disabled={submitting}/>
+          <br />
+          <br />
           <strong style={{ color: '#ed3a3a', paddingTop:'5px'}} >{error && error}</strong>
         </form>
+      </MuiThemeProvider>
     )
   }
-
 
 export default reduxForm({
   form: 'problemCreate',

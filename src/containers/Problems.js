@@ -7,11 +7,9 @@ import  ProblemUpdateForm from '../components/ProblemUpdateForm'
 import Idea from '../components/Idea'
 import Problem from '../components/Problem'
 import LoadingBar from '../components/commons/LoadingBar'
-import ReloadButton from '../components/commons/ReloadButton'
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-
-
 
 class Problems extends Component {
 
@@ -128,13 +126,12 @@ class Problems extends Component {
 
       <div style={{opacity: problemsIsFetching ? 0.5 : 1.0 }}>
         <MuiThemeProvider>
-          <RaisedButton
+          <FlatButton
             label="reload"
             primary={true}
             onClick={getProblems}
           />
         </MuiThemeProvider>
-        <br></br>
         <br></br>
         <div className="grid-center">
           <div className="col-8_sm-12">
