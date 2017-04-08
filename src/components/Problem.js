@@ -42,22 +42,20 @@ const Problem = (props)=>{
             <Card style={styleCol}>
               <CardTitle style={styleTitle}>{problem.title}</CardTitle>
               <CardText>{problem.text}</CardText>
-              <IconButton>
+              <IconButton onClick={(e)=>handleGetIdeas(problem.id)}>
                 <ArrowDropDownCircle
-                  onClick={(e)=>handleGetIdeas(problem.id)}
                   color="rgb(200, 59, 101)"
                   hoverColor="rgb(4, 179, 203)"
                 />
               </IconButton>
-              <IconButton>
-                <ModeEdit
-                  onClick={()=> showProblemUpdateForm(problem.id)}
-                  color="rgb(184, 176, 176)"
-                  hoverColor="rgb(4, 179, 203)"
-                />
-              </IconButton>
-              <IconButton>
-                <Delete onClick={()=>handleDelete(problem.id)}
+                <IconButton onClick={()=> showProblemUpdateForm(problem.id)}>
+                  <ModeEdit
+                    color="rgb(184, 176, 176)"
+                    hoverColor="rgb(4, 179, 203)"
+                  />
+                </IconButton>
+              <IconButton onClick={()=>handleDelete(problem.id)}>
+                <Delete
                   color="rgb(184, 176, 176)"
                   hoverColor="rgb(209, 65, 65)"
                 />
