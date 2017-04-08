@@ -39,7 +39,7 @@ export function getProblems(){
     .catch( response => {
       dispatch({
         type: PROBLEMS_READ_ERROR,
-        payload: 'Error retrieving content.'
+        error: 'Error retrieving content.'
       })
     })
   }

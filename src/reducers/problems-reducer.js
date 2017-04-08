@@ -25,6 +25,7 @@ const initialState = {
   problemsList: [],
   isFetching: false,
   didInvalidate: false,
+  problemsReadError: '',
   isCreating: false,
   isUpdating: [],
   isDeleting: [],
@@ -36,13 +37,13 @@ export default function(state=initialState, action){
 
   switch (action.type) {
     case REQUEST_PROBLEMS_READ:
-      return { ...state, isFetching: true, didInvalidate: false}
+      return { ...state, isFetching: true, didInvalidate: false, problemsReadError: ''}
 
     case RECEIVE_PROBLEMS_READ:
       return { ...state, problemsList: action.payload.data, isFetching: false, didInvalidate: false}
 
     case PROBLEMS_READ_ERROR:
-      return { ...state, problemsReadError: action.payload, isFetching: false}
+      return { ...state, problemsReadError: action.error, isFetching: false}
 
     case SHOW_PROBLEM_CREATE_FORM:
       return{ ...state, problemCreateFormVisible: !state.problemCreateFormVisible }
