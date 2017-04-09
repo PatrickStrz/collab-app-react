@@ -37,34 +37,36 @@ export default function(state=initialState, action){
 
   switch (action.type) {
     case REQUEST_PROBLEMS_READ:
-      return { ...state, isFetching: true, didInvalidate: false, problemsReadError: ''}
+      return { ...state, isFetching: true, didInvalidate: false, problemsReadError: '' }
 
     case RECEIVE_PROBLEMS_READ:
-      return { ...state, problemsList: action.payload.data, isFetching: false, didInvalidate: false}
+      return { ...state, problemsList: action.payload.data, isFetching: false, didInvalidate: false }
 
     case PROBLEMS_READ_ERROR:
-      return { ...state, problemsReadError: action.error, isFetching: false}
+      return { ...state, problemsReadError: action.error, isFetching: false }
 
     case SHOW_PROBLEM_CREATE_FORM:
       return{ ...state, problemCreateFormVisible: !state.problemCreateFormVisible }
 
     case REQUEST_PROBLEM_CREATE:
-      return {...state, isCreating:true }
+      return { ...state, isCreating:true }
 
     case RECEIVE_PROBLEM_CREATE:
-      return {...state, didInvalidate: true, isCreating:false, problemCreateFormVisible:false}
+      return { ...state, didInvalidate: true, isCreating:false, problemCreateFormVisible:false }
 
     case PROBLEM_CREATE_ERROR:
       return { ...state, isCreating: false }
 
+    //used brackets to create a block nextIsUpdating can be defined multiple times
+    // scopes the variable to the block
     case SHOW_PROBLEM_UPDATE_FORM: {
       const nextVisibleProblemUpdateForms = toggleValueInList(action.problemId, state.visibleProblemUpdateForms)
-      return {...state, visibleProblemUpdateForms: nextVisibleProblemUpdateForms }
+      return { ...state, visibleProblemUpdateForms: nextVisibleProblemUpdateForms }
     }
 
     case REQUEST_PROBLEM_UPDATE: {
       const nextIsUpdating = [...state.isUpdating, action.problemId]
-      return {...state, isUpdating: nextIsUpdating }
+      return { ...state, isUpdating: nextIsUpdating }
     }
 
     case RECEIVE_PROBLEM_UPDATE: {

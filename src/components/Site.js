@@ -14,7 +14,7 @@ class Site extends Component {
       <div className="Site">
         {/* <div className="Site-header"> */}
           {/* <img src={logo} className="Site-logo" alt="logo" /> */}
-          {/* {this.renderUserControls()} */}
+          {this.renderUserControls()}
         {/* </div> */}
         <Navbar />
         <div className="Site-page">

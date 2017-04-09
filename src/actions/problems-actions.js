@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {BASE_URL} from './api-commons'
 import { SubmissionError } from 'redux-form'
 import {
         SHOW_PROBLEM_CREATE_FORM,
@@ -20,7 +21,7 @@ import {
         PROBLEM_UPDATE_ERROR,
       } from './types'
 
-import {BASE_URL} from './api-commons'
+
 
 export function getProblems(){
   return function (dispatch){
@@ -50,6 +51,7 @@ export function createProblem(props){
     dispatch({
       type: REQUEST_PROBLEM_CREATE
     })
+    // return so that redux-form SubmissionError works
     return axios.post(`${BASE_URL}/problems/`,{
       title:props.title,
       text: props.text
