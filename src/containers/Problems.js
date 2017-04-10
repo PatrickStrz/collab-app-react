@@ -3,14 +3,11 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 import { addProblem, removeProblem, } from '../lib/problems-helpers'
 import  ProblemCreateForm from '../components/ProblemCreateForm'
-import  ProblemUpdateForm from '../components/ProblemUpdateForm'
 import Idea from '../components/Idea'
 import Problem from '../components/Problem'
 import LoadingBar from '../components/ui/LoadingBar'
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import {muiTheme} from '../lib/ui-helpers/mui-theme'
 
 class Problems extends Component {
 
@@ -26,21 +23,10 @@ class Problems extends Component {
     }
   }
 
-  renderProblemUpdateForm = (problem) =>{
-    const {updateProblem} = this.props
-    return(
-      <ProblemUpdateForm
-        initialValues={{title:problem.title, text:problem.text}}
-        // partial assigned problem.id to pass along when redux form is submitted
-        onSubmit={updateProblem.bind(null,problem.id)}
-        form={`problemUpdate${problem.id}`}
-      />
-    )
-  }
-
   listProblems = (problems) => {
     const {
       deleteProblem,
+      updateProblem,
       isUpdating,
       isDeleting,
       visibleProblemUpdateForms,
@@ -54,13 +40,12 @@ class Problems extends Component {
             handleDelete={deleteProblem}
             handleGetIdeas={this.getIdeasClickHandler}
             problem={problem}
+            visibleProblemUpdateForms={visibleProblemUpdateForms}
+            submitUpdateProblem={updateProblem}
             isUpdating={isUpdating}
             isDeleting={isDeleting}
             showProblemUpdateForm={showProblemUpdateForm}
           />
-
-          { visibleProblemUpdateForms.includes(problem.id) && this.renderProblemUpdateForm(problem)}
-
           <div>
             {this.state.ideasVisibleForProblems.includes(problem.id) && this.listIdeasForProblems(problem.id)}
           </div>
@@ -122,13 +107,11 @@ class Problems extends Component {
         } = this.props
     return (
       <div style={{opacity: problemsIsFetching ? 0.5 : 1.0 }}>
-        <MuiThemeProvider>
           <FlatButton
             label="reload"
             primary={true}
             onClick={getProblems}
           />
-        </MuiThemeProvider>
 
         <br></br>
         <div className="grid-center">
@@ -141,14 +124,11 @@ class Problems extends Component {
           {this.listProblems(problemsList)}
         </div>
           <br></br>
-          <MuiThemeProvider muiTheme={muiTheme}>
             <RaisedButton
-              muiTheme={muiTheme}
               label="Add a new problem"
               secondary={true}
               onClick={(e)=>{showProblemCreateForm()}}
             />
-          </MuiThemeProvider>
           { problemCreateFormVisible && this.renderProblemCreateForm() }
       </div>
     )

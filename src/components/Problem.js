@@ -1,17 +1,18 @@
 import React, {PropTypes} from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import ProblemUpdateForm from './ProblemUpdateForm'
 import {Card, CardTitle, CardText} from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
 import Delete from 'material-ui/svg-icons/action/delete'
 import ModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 import ArrowDropDownCircle from 'material-ui/svg-icons/navigation/arrow-drop-down-circle'
-// import ProblemUpdateForm from './ProblemUpdateForm'
 
 const Problem = (props)=>{
 
   const {
     handleDelete,
     handleGetIdeas,
+    visibleProblemUpdateForms,
+    submitUpdateProblem,
     problem,
     isUpdating,
     isDeleting,
@@ -36,8 +37,18 @@ const Problem = (props)=>{
     color:'rgb(255, 255, 255)'
   }
 
+  const renderProblemUpdateForm = (problem) =>{
+    return(
+      <ProblemUpdateForm
+        initialValues={{title:problem.title, text:problem.text}}
+        // partial assigned problem.id to pass along when redux form is submitted
+        onSubmit={submitUpdateProblem.bind(null,problem.id)}
+        form={`problemUpdate${problem.id}`}
+      />
+    )
+  }
+
   return(
-    <MuiThemeProvider>
         <div className="grid-center" style={styleGrid} >
           <div className="col-10_sm-12" >
             <Card style={styleCol}>
@@ -61,16 +72,18 @@ const Problem = (props)=>{
                   hoverColor="rgb(209, 65, 65)"
                 />
               </IconButton>
+              { visibleProblemUpdateForms.includes(problem.id) && renderProblemUpdateForm(problem)}
             </Card>
           </div>
         </div>
-    </MuiThemeProvider>
   )
 }
 
 Problem.propTypes = {
   handleDelete: PropTypes.func.isRequired,
   handleGetIdeas: PropTypes.func.isRequired,
+  visibleProblemUpdateForms: PropTypes.array.isRequired,
+  submitUpdateProblem: PropTypes.func.isRequired,
   problem: PropTypes.object.isRequired,
   isUpdating: PropTypes.array.isRequired,
   isDeleting: PropTypes.array.isRequired,
