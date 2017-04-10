@@ -6,10 +6,11 @@ import  ProblemCreateForm from '../components/ProblemCreateForm'
 import  ProblemUpdateForm from '../components/ProblemUpdateForm'
 import Idea from '../components/Idea'
 import Problem from '../components/Problem'
-import LoadingBar from '../components/commons/LoadingBar'
+import LoadingBar from '../components/ui/LoadingBar'
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import {muiTheme} from '../lib/ui-helpers/mui-theme'
 
 class Problems extends Component {
 
@@ -25,7 +26,7 @@ class Problems extends Component {
     }
   }
 
-  showProblemUpdateForm = (problem) =>{
+  renderProblemUpdateForm = (problem) =>{
     const {updateProblem} = this.props
     return(
       <ProblemUpdateForm
@@ -38,7 +39,6 @@ class Problems extends Component {
   }
 
   listProblems = (problems) => {
-
     const {
       deleteProblem,
       isUpdating,
@@ -59,7 +59,7 @@ class Problems extends Component {
             showProblemUpdateForm={showProblemUpdateForm}
           />
 
-          { visibleProblemUpdateForms.includes(problem.id) && this.showProblemUpdateForm(problem)}
+          { visibleProblemUpdateForms.includes(problem.id) && this.renderProblemUpdateForm(problem)}
 
           <div>
             {this.state.ideasVisibleForProblems.includes(problem.id) && this.listIdeasForProblems(problem.id)}
@@ -99,7 +99,7 @@ class Problems extends Component {
     }
   }
 
-  displayProblemCreateForm = ()=> {
+  renderProblemCreateForm = ()=> {
     const {createProblem, isCreating} = this.props
     return(
       <div style={{opacity: isCreating ? 0.5 : 1.0 }}>
@@ -111,7 +111,6 @@ class Problems extends Component {
   }
 
   render() {
-
     const {
           problemsList,
           problemsIsFetching,
@@ -121,9 +120,7 @@ class Problems extends Component {
           problemCreateFormVisible,
 
         } = this.props
-
     return (
-
       <div style={{opacity: problemsIsFetching ? 0.5 : 1.0 }}>
         <MuiThemeProvider>
           <FlatButton
@@ -132,6 +129,7 @@ class Problems extends Component {
             onClick={getProblems}
           />
         </MuiThemeProvider>
+
         <br></br>
         <div className="grid-center">
           <div className="col-8_sm-12">
@@ -143,14 +141,15 @@ class Problems extends Component {
           {this.listProblems(problemsList)}
         </div>
           <br></br>
-          <MuiThemeProvider>
+          <MuiThemeProvider muiTheme={muiTheme}>
             <RaisedButton
+              muiTheme={muiTheme}
               label="Add a new problem"
               secondary={true}
               onClick={(e)=>{showProblemCreateForm()}}
             />
           </MuiThemeProvider>
-          { problemCreateFormVisible && this.displayProblemCreateForm() }
+          { problemCreateFormVisible && this.renderProblemCreateForm() }
       </div>
     )
   }
