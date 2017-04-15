@@ -11,7 +11,13 @@ import FlatButton from 'material-ui/FlatButton';
 
 class Problems extends Component {
 
+
   state = { ideasVisibleForProblems: [] }
+
+    constructor(props) {
+    super(props)
+    this.props.checkLogin() // check is Auth0 lock is authenticating after login callback
+  }
 
   componentDidMount(){
     this.props.getProblems()
@@ -103,7 +109,9 @@ class Problems extends Component {
           problemsReadError,
           showProblemCreateForm,
           problemCreateFormVisible,
-
+          isAuthenticated,
+          loginRequest,
+          logout,
         } = this.props
     return (
       <div style={{opacity: problemsIsFetching ? 0.5 : 1.0 }}>
@@ -127,9 +135,15 @@ class Problems extends Component {
             <RaisedButton
               label="Add a new problem"
               secondary={true}
-              onClick={(e)=>{showProblemCreateForm()}}
+              onClick={(e)=>{ isAuthenticated ? showProblemCreateForm() : loginRequest() }}
             />
+
           { problemCreateFormVisible && this.renderProblemCreateForm() }
+          <RaisedButton
+            label="Signout"
+            secondary={true}
+            onClick={(e)=>{ isAuthenticated ? logout() : alert('already logged out') }}
+          />
       </div>
     )
   }
@@ -137,6 +151,7 @@ class Problems extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    isAuthenticated: state.auth.isAuthenticated,
     likes: state.likes,
     problemsList: state.problems.problemsList,
     problemsReadError: state.problems.problemsReadError,
