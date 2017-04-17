@@ -7,7 +7,7 @@ const initialState = {
   profile: AuthService.getProfile(),
   isSyncingUser: false,
   apiUserId: AuthService.getApiUserId(),
-  syncUserError: null,
+  syncUserError: '',
   error: null,
 }
 export default function authReducer(state=initialState, action) {
@@ -19,9 +19,9 @@ export default function authReducer(state=initialState, action) {
     case ActionTypes.LOGIN_ERROR:
       return { ...state, isFetching: false, isAuthenticated: false, profile: {}, error: action.error }
     case ActionTypes.LOGOUT_SUCCESS:
-      return { ...state, isAuthenticated: false, profile: {}, apiUserId: '' }
+      return { ...state, ...initialState }
     case ActionTypes.REQUEST_SYNC_USER:
-      return { ...state, isSyncingUser: true }
+      return { ...state, isSyncingUser: true, syncUserError: '' }
     case ActionTypes.RECEIVE_SYNC_USER:
       return { ...state, isSyncingUser: false, apiUserId: action.apiUserId }
     case ActionTypes.SYNC_USER_ERROR:

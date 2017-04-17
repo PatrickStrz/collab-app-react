@@ -12,9 +12,9 @@ const authService = new AuthService(
 // Listen to authenticated event from AuthService and get the profile of the user
 // Done on every page startup
 export function checkLogin() {
-  return (dispatch) => {
+  return dispatch => {
     // Add callback for lock's `authenticated` event
-    authService.lock.on('authenticated', (authResult) => {
+    authService.lock.on('authenticated', authResult => {
       authService.lock.getProfile(authResult.idToken, (error, profile) => {
         if (error)
           return dispatch(loginError(error))
@@ -26,11 +26,28 @@ export function checkLogin() {
       })
     })
     // Add callback for lock's `authorization_error` event
-    authService.lock.on('authorization_error', (error) => dispatch(loginError(error)))
+    authService.lock.on('authorization_error', error => dispatch(loginError(error)))
   }
 }
 
-export function loginRequest() {
+//Calls the function that is passed in if logged in with Auth0 and
+//the profile is created/ synced with the API
+export const requireAuth = callback => {
+  return dispatch => {
+    if(AuthService.loggedIn() && AuthService.getApiUserId()){
+      callback()
+    }
+    else if (AuthService.loggedIn() && !AuthService.getApiUserId()) {
+      const profile = AuthService.getProfile()
+        dispatch(syncUser(profile))
+      }
+    else {
+      dispatch(login())
+    }
+  }
+}
+
+export function login() {
 
   authService.login()
   return {
@@ -55,7 +72,7 @@ export function loginError(error) {
 
 export function logout() {
   authService.logout()
-  // browserHistory.push('/')
+  browserHistory.push('/signedOut')
   return {
     type: ActionTypes.LOGOUT_SUCCESS
   }
@@ -82,7 +99,7 @@ export function syncUser(profile){
     picture,
     picture_large
   }
-  return (dispatch)=>{
+  return dispatch => {
     dispatch({
       type: ActionTypes.REQUEST_SYNC_USER
     })
@@ -95,7 +112,7 @@ export function syncUser(profile){
         apiUserId
       })
     })
-    .catch(response=>{
+    .catch( response => {
       dispatch({
         type: ActionTypes.SYNC_USER_ERROR,
         payload: 'error creating/syncing user'

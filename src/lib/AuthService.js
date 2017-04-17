@@ -15,12 +15,12 @@ export default class AuthService {
         redirectUrl: `${window.location.origin}${ROOT_ROUTE}`,
         responseType: 'token'
       },
-      // theme: {
+      theme: {
       //   logo: LogoImg,
-      //   primaryColor: "#b81b1c"
-      // },
+        primaryColor: "#5f38b4"
+      },
       languageDictionary: {
-        title: 'React Redux Auth0 Kit'
+        title: 'Collab App'
       }
     })
     // binds login functions to keep this context

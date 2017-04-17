@@ -11,13 +11,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 class Problems extends Component {
 
-
   state = { ideasVisibleForProblems: [] }
-
-    constructor(props) {
-    super(props)
-    this.props.checkLogin() // check is Auth0 lock is authenticating after login callback
-  }
 
   componentDidMount(){
     this.props.getProblems()
@@ -37,12 +31,14 @@ class Problems extends Component {
       isDeleting,
       visibleProblemUpdateForms,
       showProblemUpdateForm,
+      requireAuth,
     } = this.props
 
     return problems.map((problem)=> {
       return (
         <div key={'problem-'+problem.id}>
           <Problem
+            requireAuth={requireAuth}
             handleDelete={deleteProblem}
             handleGetIdeas={this.getIdeasClickHandler}
             problem={problem}
@@ -109,9 +105,6 @@ class Problems extends Component {
           problemsReadError,
           showProblemCreateForm,
           problemCreateFormVisible,
-          isAuthenticated,
-          loginRequest,
-          logout,
         } = this.props
     return (
       <div style={{opacity: problemsIsFetching ? 0.5 : 1.0 }}>
@@ -120,7 +113,6 @@ class Problems extends Component {
             primary={true}
             onClick={getProblems}
           />
-
         <br></br>
         <div className="grid-center">
           <div className="col-8_sm-12">
@@ -135,15 +127,9 @@ class Problems extends Component {
             <RaisedButton
               label="Add a new problem"
               secondary={true}
-              onClick={(e)=>{ isAuthenticated ? showProblemCreateForm() : loginRequest() }}
+              onClick={(e)=>{ this.props.requireAuth(showProblemCreateForm) }}
             />
-
-          { problemCreateFormVisible && this.renderProblemCreateForm() }
-          <RaisedButton
-            label="Signout"
-            secondary={true}
-            onClick={(e)=>{ isAuthenticated ? logout() : alert('already logged out') }}
-          />
+          { (problemCreateFormVisible) && this.renderProblemCreateForm() }
       </div>
     )
   }

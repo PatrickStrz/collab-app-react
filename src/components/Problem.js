@@ -9,6 +9,7 @@ import ArrowDropDownCircle from 'material-ui/svg-icons/navigation/arrow-drop-dow
 const Problem = (props)=>{
 
   const {
+    requireAuth,
     handleDelete,
     handleGetIdeas,
     visibleProblemUpdateForms,
@@ -26,12 +27,10 @@ const Problem = (props)=>{
     paddingTop:"5px",
     paddingBottom:"5px",
   }
-
   const styleCol = {
     background: "rgb(255, 255, 255)",
     opacity: isUpdatingNow() ? 0.5 : 1
   }
-
   const styleTitle = {
     background: isDeletingNow() ? "rgb(213, 50, 50)" : "rgb(59, 87, 200)",
     color:'rgb(255, 255, 255)'
@@ -48,6 +47,9 @@ const Problem = (props)=>{
     )
   }
 
+  const showProblemUpdateFormCallback = ()=>showProblemUpdateForm(problem.id)
+  const handleDeleteCallback = () =>handleDelete(problem.id)
+
   return(
         <div className="grid-center" style={styleGrid} >
           <div className="col-10_sm-12" >
@@ -60,13 +62,13 @@ const Problem = (props)=>{
                   hoverColor="rgb(4, 179, 203)"
                 />
               </IconButton>
-                <IconButton onClick={()=> showProblemUpdateForm(problem.id)}>
+                <IconButton onClick={()=>requireAuth(showProblemUpdateFormCallback)}>
                   <ModeEdit
                     color="rgb(184, 176, 176)"
                     hoverColor="rgb(4, 179, 203)"
                   />
                 </IconButton>
-              <IconButton onClick={()=>handleDelete(problem.id)}>
+              <IconButton onClick={()=>requireAuth(handleDeleteCallback)}>
                 <Delete
                   color="rgb(184, 176, 176)"
                   hoverColor="rgb(209, 65, 65)"
@@ -87,7 +89,8 @@ Problem.propTypes = {
   problem: PropTypes.object.isRequired,
   isUpdating: PropTypes.array.isRequired,
   isDeleting: PropTypes.array.isRequired,
-  showProblemUpdateForm: PropTypes.func.isRequired
+  showProblemUpdateForm: PropTypes.func.isRequired,
+  requireAuth: PropTypes.func.isRequired,
 }
 
 export default Problem
