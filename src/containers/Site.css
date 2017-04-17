@@ -1,3 +1,13 @@
+
+.Site-body {
+color: #404040;
+background: #282537;
+background-image: -webkit-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
+background-image: -moz-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
+background-image: -o-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
+background-image: radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
+}
+
 .Site {
   text-align: center;
 }
@@ -5,23 +15,6 @@
 .Site-logo {
   animation: Site-logo-spin infinite 20s linear;
   height: 80px;
-}
-
-.Site-header {
-  background-color: #222;
-  padding: 20px;
-  color: white;
-}
-
-.Site-profileControls {
-  padding: 10px;
-}
-
-.Site-profilePicture {
-  display: block;
-  width: 192px;
-  height: 192px;
-  margin: 10px auto;
 }
 
 .Site-page {

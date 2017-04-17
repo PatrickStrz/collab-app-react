@@ -56,6 +56,9 @@ const Problem = (props)=>{
             <Card style={styleCol}>
               <CardTitle style={styleTitle}>{problem.title}</CardTitle>
               <CardText>{problem.text}</CardText>
+
+              { visibleProblemUpdateForms.includes(problem.id) && renderProblemUpdateForm(problem)}
+
               <IconButton onClick={(e)=>handleGetIdeas(problem.id)}>
                 <ArrowDropDownCircle
                   color="rgb(200, 59, 101)"
@@ -74,7 +77,6 @@ const Problem = (props)=>{
                   hoverColor="rgb(209, 65, 65)"
                 />
               </IconButton>
-              { visibleProblemUpdateForms.includes(problem.id) && renderProblemUpdateForm(problem)}
             </Card>
           </div>
         </div>

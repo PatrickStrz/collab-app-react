@@ -23,7 +23,7 @@ class Site extends Component {
     } = this.props
 
     return (
-      <div className="Site">
+      <div className="Site Site-body">
         <Navbar
           isAuthenticated={isAuthenticated}
           profile={profile}
