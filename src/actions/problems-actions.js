@@ -34,7 +34,8 @@ export function createProblem(props){
     // return so that redux-form SubmissionError works
     return axios.post(`${BASE_URL}/problems/`,{
       title:props.title,
-      text: props.text
+      text: props.text,
+      user_id: localStorage.api_user_id
     })
     .then(response => {
       dispatch({
