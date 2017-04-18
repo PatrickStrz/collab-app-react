@@ -9,6 +9,7 @@ import LoadingBar from '../components/ui/LoadingBar'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import IdeaDialog from '../components/IdeaDialog'
+import DrawerExample from '../components/DrawerExample'
 
 class Problems extends Component {
 
@@ -135,6 +136,7 @@ class Problems extends Component {
               onClick={(e)=>{ this.props.requireAuth(showProblemCreateForm) }}
             />
           { (problemCreateFormVisible) && this.renderProblemCreateForm() }
+          <DrawerExample />
       </div>
     )
   }
