@@ -2,6 +2,7 @@ import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import IdeaDialog from './IdeaDialog'
 
 export default class DrawerExample extends React.Component {
 
@@ -21,6 +22,7 @@ export default class DrawerExample extends React.Component {
         />
         <Drawer open={this.state.open}>
           <MenuItem>Menu Item</MenuItem>
+          <IdeaDialog />
           <MenuItem>Menu Item 2</MenuItem>
           <MenuItem>Menu Item 3</MenuItem>
           <MenuItem>Menu Item 4</MenuItem>
@@ -31,6 +33,7 @@ export default class DrawerExample extends React.Component {
           <MenuItem>Menu Item 9</MenuItem>
           <MenuItem>Menu Item 10</MenuItem>
           <MenuItem>Menu Item 11</MenuItem>
+          <IdeaDialog />
           <MenuItem>Menu Item 12</MenuItem>
           <MenuItem>Menu Item 13</MenuItem>
           <MenuItem>Menu Item 14</MenuItem>
@@ -40,6 +43,7 @@ export default class DrawerExample extends React.Component {
           <MenuItem>Menu Item 18</MenuItem>
           <MenuItem>Menu Item 19</MenuItem>
           <MenuItem>Menu Item 20</MenuItem>
+          <IdeaDialog />
           <MenuItem>Menu Item 21</MenuItem>
           <MenuItem>Menu Item 22</MenuItem>
         </Drawer>
