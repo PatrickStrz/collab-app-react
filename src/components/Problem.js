@@ -53,7 +53,7 @@ const Problem = (props)=>{
   return(
         <div className="grid-center" style={styleGrid} >
           <div className="col-10_sm-12" >
-            <Card style={styleCol}>
+            <Card style={styleCol} zDepth={5}>
               <CardTitle style={styleTitle}>{problem.title}</CardTitle>
               <CardText>{problem.text}</CardText>
 
