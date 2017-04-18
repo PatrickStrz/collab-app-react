@@ -6,8 +6,9 @@ import  ProblemCreateForm from '../components/ProblemCreateForm'
 import Idea from '../components/Idea'
 import Problem from '../components/Problem'
 import LoadingBar from '../components/ui/LoadingBar'
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
+import IdeaDialog from '../components/IdeaDialog'
 
 class Problems extends Component {
 
@@ -78,7 +79,11 @@ class Problems extends Component {
     const ideasForProblems = this.props.ideasForProblems
     if (ideasForProblems.hasOwnProperty(problemId) && ideasForProblems[problemId].length !== 0) {
       return ideasForProblems[problemId].map((idea)=>{
-        return <Idea key={'idea'+idea.id} idea={idea}  />
+        return (<div>
+          <Idea key={'idea'+idea.id} idea={idea}  />
+          <IdeaDialog/>
+        </div>
+        )
       })
     }
     else{
