@@ -8,10 +8,11 @@ export default class DrawerExample extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {open: false};
+    this.state = {open: false}
   }
 
-  handleToggle = () => this.setState({open: !this.state.open});
+  handleToggle = () => this.setState({open: !this.state.open})
+  closeDrawer = () => this.setState({open: false})
 
   render() {
     return (
@@ -20,7 +21,7 @@ export default class DrawerExample extends React.Component {
           label="Toggle Drawer"
           onTouchTap={this.handleToggle}
         />
-        <Drawer open={this.state.open}>
+        <Drawer open={this.state.open} docked={false} onRequestChange={this.closeDrawer}>
           <MenuItem>Menu Item</MenuItem>
           <IdeaDialog />
           <MenuItem>Menu Item 2</MenuItem>

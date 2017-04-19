@@ -1,13 +1,15 @@
 import React,{Component} from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../actions'
-import { addProblem, removeProblem, } from '../lib/problems-helpers'
-import  ProblemCreateForm from '../components/ProblemCreateForm'
-import Idea from '../components/Idea'
-import Problem from '../components/Problem'
-import LoadingBar from '../components/ui/LoadingBar'
+import * as actions from '../../actions'
+import { addProblem, removeProblem, } from '../../lib/problems-helpers'
+import  ProblemCreateForm from '../../components/ProblemCreateForm'
+import Idea from '../../components/Idea'
+import Problem from '../../components/Problem'
+import LoadingBar from '../../components/ui/LoadingBar'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
+import IdeaDialog from './IdeaDialog'
+import DrawerExample from './DrawerExample'
 
 class Problems extends Component {
 
@@ -80,6 +82,7 @@ class Problems extends Component {
       return ideasForProblems[problemId].map((idea)=>{
         return (<div>
           <Idea key={'idea'+idea.id} idea={idea}  />
+          <IdeaDialog/>
         </div>
         )
       })
@@ -133,6 +136,7 @@ class Problems extends Component {
               onClick={(e)=>{ this.props.requireAuth(showProblemCreateForm) }}
             />
           { (problemCreateFormVisible) && this.renderProblemCreateForm() }
+          <DrawerExample />
       </div>
     )
   }

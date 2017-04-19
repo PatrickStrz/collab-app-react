@@ -5,6 +5,7 @@ import {muiTheme} from '../lib/ui-helpers/mui-theme'
 import Site from '../containers/Site'
 import Home from './Home'
 import SignedOut from './SignedOut'
+import Problems from './prototype1/Problems'
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
       <Router history={browserHistory}>
         <Route component={Site}>
           <Route path="/" component={Home} />
+          <Route path="/p1" component={Problems} />
           <Route path="/signedOut" component={SignedOut} />
           {/* <Route onEnter={requireAuth}> */}
             {/* Place all authenticated routes here */}
