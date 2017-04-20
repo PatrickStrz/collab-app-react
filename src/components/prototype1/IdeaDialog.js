@@ -2,14 +2,7 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
 import DrawerExample from './DrawerExample'
-
-const styles = {
-  radioButton: {
-    marginTop: 16,
-  },
-};
 
 /**
  * Dialog content can be scrollable.
@@ -42,21 +35,8 @@ export default class IdeaDialog extends React.Component {
       />,
     ];
 
-    const radios = [];
-    for (let i = 0; i < 30; i++) {
-      radios.push(
-        <RadioButton
-          key={i}
-          value={`value${i + 1}`}
-          label={`Option ${i + 1}`}
-          style={styles.radioButton}
-        />
-      );
-    }
-
     return (
       <div>
-
         <RaisedButton label="Scrollable Dialog" onTouchTap={this.handleOpen} />
         <Dialog
           title="Scrollable Dialog"
@@ -65,10 +45,9 @@ export default class IdeaDialog extends React.Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
-        ><DrawerExample />
-          <RadioButtonGroup name="shipSpeed" defaultSelected="not_light">
-            {radios}
-          </RadioButtonGroup>
+        >
+          <h2>Big Idea to change da world</h2>
+          <DrawerExample/>
         </Dialog>
       </div>
     );
