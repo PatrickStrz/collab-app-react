@@ -29,7 +29,8 @@ const Problem = (props)=>{
   }
   const styleCol = {
     background: "rgb(255, 255, 255)",
-    opacity: isUpdatingNow() ? 0.5 : 1
+    opacity: isUpdatingNow() ? 0.5 : 1,
+    // background: '#252233'
   }
   const styleTitle = {
     background: isDeletingNow() ? "rgb(213, 50, 50)" : "rgb(59, 87, 200)",

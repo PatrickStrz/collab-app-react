@@ -9,7 +9,6 @@ import LoadingBar from '../../components/ui/LoadingBar'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import IdeaDialog from './IdeaDialog'
-import DrawerExample from './DrawerExample'
 
 class Problems extends Component {
 
@@ -80,9 +79,12 @@ class Problems extends Component {
     const ideasForProblems = this.props.ideasForProblems
     if (ideasForProblems.hasOwnProperty(problemId) && ideasForProblems[problemId].length !== 0) {
       return ideasForProblems[problemId].map((idea)=>{
-        return (<div>
-          <Idea key={'idea'+idea.id} idea={idea}  />
-          <IdeaDialog/>
+        return (<div key={'idea'+idea.id}>
+          <Idea idea={idea} />
+          <IdeaDialog
+            toggleDrawer={this.props.toggleDrawer}
+            drawerIsOpen={this.props.drawerIsOpen}
+            />
         </div>
         )
       })
@@ -136,7 +138,6 @@ class Problems extends Component {
               onClick={(e)=>{ this.props.requireAuth(showProblemCreateForm) }}
             />
           { (problemCreateFormVisible) && this.renderProblemCreateForm() }
-          <DrawerExample />
       </div>
     )
   }
@@ -155,7 +156,8 @@ const mapStateToProps = (state) => {
     isUpdating: state.problems.isUpdating,
     isDeleting: state.problems.isDeleting,
     problemCreateFormVisible: state.problems.problemCreateFormVisible,
-    visibleProblemUpdateForms: state.problems.visibleProblemUpdateForms
+    visibleProblemUpdateForms: state.problems.visibleProblemUpdateForms,
+    drawerIsOpen: state.prototype1.drawerIsOpen
   }
 }
 
